@@ -1,0 +1,17 @@
+# Engine binaries are installed locally, not project assets.
+/Godot*_win64/
+/.codex/
+/.agents/
+**/.godot/
+**/builds/
+**/captures/*.png
+.env
+.env.*
+!.env.example
+*.pfx
+*.pem
+*.key
+*.tmp
+*.log
+Thumbs.db
+Desktop.ini
