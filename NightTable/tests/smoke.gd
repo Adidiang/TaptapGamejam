@@ -65,8 +65,10 @@ func _run() -> void:
 	_test_results()
 	_test_persistence()
 	_simulate_runs()
+	load("res://tests/load_duel_test.gd").new().test(check)
+	load("res://tests/passive_test.gd").new().test(check)
 	await _test_ui()
-	print("PASS: %d checks; seeded routes, blackjack boundaries, effects, economy, persistence and UI flow" % checks)
+	print("PASS: %d checks; new load duels, legacy regression, economy, persistence and UI flow" % checks)
 	quit(0)
 
 func _test_maps() -> void:
@@ -280,11 +282,39 @@ func _test_ui() -> void:
 	check(app.screen == "stake","stake disclosure")
 	app.begin_battle()
 	check(app.screen == "encounter","actual battle screen")
-	while app.battle.phase != BlackjackMatch.Phase.MATCH_OVER:
-		match app.battle.phase:
-			BlackjackMatch.Phase.PLAYER: app.battle.stand()
-			BlackjackMatch.Phase.BUST_WINDOW: app.battle.confirm_bust()
-			BlackjackMatch.Phase.HAND_OVER: app.battle.deal_hand()
+	var secret := CombatCatalog.function_card(0)
+	secret.title = "PRIVATE_SENTINEL"
+	secret.description = "PRIVATE_SENTINEL"
+	app.battle.duel.sides[1].functions.assign([secret.instance(99999)])
+	app.show_encounter()
+	check(not _ui_contains(app.page,"PRIVATE_SENTINEL"),"opponent secret absent from UI labels and tooltips")
+	for passive_index in [7,10]:
+		var passive := CombatCatalog.function_card(passive_index)
+		passive.title = "HIDDEN_PASSIVE"
+		passive.description = "HIDDEN_PASSIVE"
+		app.battle.duel.sides[1].functions.assign([passive.instance(99998)])
+		app.show_encounter()
+		check(not _ui_contains(app.page,"HIDDEN_PASSIVE"),"opponent passive identity absent from labels/tooltips")
+	app.battle.duel.sides[1].functions.assign([secret.instance(99999)])
+	app.duel_action("end_turn")
+	check(app.battle.duel.active == 1,"UI end turn hands off to AI")
+	var before_turns: int = app.battle.duel.turns
+	var before_functions: int = app.battle.duel.sides[1].functions.size()
+	await app._opponent_tick(app.ai_generation)
+	check(app.battle.duel.turns > before_turns or app.battle.duel.sides[1].functions.size() < before_functions,"timed AI action executes")
+	var stale: int = app.ai_generation
+	app.show_encounter()
+	before_turns = app.battle.duel.turns
+	await app._opponent_tick(stale)
+	check(app.battle.duel.turns == before_turns,"stale UI timer ignored")
+	var iterations := 0
+	while app.battle.phase != DuelEncounter.Phase.MATCH_OVER and iterations < 2000:
+		iterations += 1
+		if app.battle.phase == DuelEncounter.Phase.HAND_OVER: app.battle.deal_hand()
+		else:
+			load("res://tests/load_duel_test.gd").step(app.battle.duel)
+			app.battle.resolve_if_finished()
+	check(iterations < 2000,"new UI encounter terminates")
 	app.show_encounter()
 	app.settle_battle()
 	check(app.screen == "reward","battle offers reward")
@@ -313,3 +343,10 @@ func _test_ui() -> void:
 	await process_frame
 	app.queue_free()
 	await process_frame
+
+func _ui_contains(node: Node, value: String) -> bool:
+	if (node is Label or node is Button) and value in node.text: return true
+	if node is Control and value in node.tooltip_text: return true
+	for child in node.get_children():
+		if _ui_contains(child,value): return true
+	return false

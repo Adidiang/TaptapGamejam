@@ -1,0 +1,126 @@
+extends "res://tests/load_duel_test.gd"
+
+func test(check: Callable) -> void:
+	verify = check
+	var d := fresh()
+	d.sides[0].numbers.assign([number(27,3)])
+	d.sides[0].functions.assign([function(7),function(8)])
+	verify.call(d.projected_score(0)==33 and d.score(0)==27,"flat then percentage; preview does not mutate numbers")
+	verify.call(not d.play(0,0) and not d.play(0,1),"bonus cannot be activated")
+	d.sides[0].functions.assign([function(7),function(7)])
+	verify.call(d.projected_score(0)==32,"percentages add and floor once")
+	d.discard_function(0,0)
+	verify.call(d.projected_score(0)==29,"discarded bonus no longer counts")
+	d.sides[0].numbers.assign([number(),number(),number(),number()])
+	d.sides[0].functions.assign([function(9)])
+	verify.call(d.projected_score(0)==20,"formation threshold not met")
+	d.sides[0].numbers.append(number())
+	verify.call(d.projected_score(0)==30,"formation activates at five numbers")
+	d = fresh()
+	d.sides[0].functions.assign([function(8)])
+	d.sides[1].numbers.assign([number(12,2)])
+	d.phase = LoadDuel.Phase.DECIDE
+	d.sides[1].first = false
+	d.stop(0)
+	d.stop(1)
+	verify.call(d.winner==0 and d.final_scores[0].total==13 and d.final_scores[1].total==12,"bonus changes actual comparison winner")
+	verify.call(d.sides[0].functions.size()==1,"bonus remains in slot through settlement")
+	var settled: Array = d.final_scores.duplicate(true)
+	verify.call(not d.stop(1) and d.final_scores==settled,"settlement not repeated")
+	d = fresh()
+	d.phase = LoadDuel.Phase.DECIDE
+	d.sides[1].functions.assign([function(10),function(10)])
+	d.sides[0].pile.assign([number(9,3)])
+	d.draw(0)
+	verify.call(d.sides[0].numbers.back().value==5,"snare hits newly drawn number")
+	verify.call(d.sides[1].functions.size()==1 and d.sides[1].discard.size()==1,"later snare rechecks condition after previous trigger")
+	verify.call(d.load_total(1)==6,"trigger consumes trap and releases load")
+	d.end_turn(0)
+	verify.call(d.sides[1].discard.size()==1,"trap does not fire on unrelated event")
+	d = fresh()
+	d.phase = LoadDuel.Phase.DECIDE
+	d.sides[1].functions.assign([function(10)])
+	d.sides[0].pile.assign([number(6,3)])
+	d.draw(0)
+	verify.call(d.sides[1].functions.size()==1,"snare threshold is seven")
+	d = fresh()
+	d.phase = LoadDuel.Phase.DECIDE
+	d.sides[0].numbers.assign([number(9,5),number(9,5),number(9,5),number(1,5)])
+	d.sides[1].functions.assign([function(10)])
+	d.sides[0].pile.assign([number(8,2)])
+	d.draw(0)
+	verify.call(d.overloaded==0 and d.sides[1].functions.size()==1 and d.final_scores.is_empty(),"overload precedes traps and bonus settlement")
+	d = fresh()
+	d.sides[0].functions.assign([function(0)])
+	d.sides[1].functions.assign([function(11)])
+	d.play(0,0)
+	verify.call(d.score(0)==10 and d.sides[1].functions.is_empty(),"counter fires after boost completes")
+	d = fresh()
+	d.sides[0].functions.assign([function(0)])
+	d.sides[1].functions.assign([function(11)])
+	d.discard_function(0,0)
+	verify.call(d.sides[1].functions.size()==1,"discard is not an effect play")
+	d = fresh()
+	d.sides[0].functions.assign([function(10),function(11),function(12)])
+	verify.call(not d.play(0,0) and not d.play(0,1) and not d.play(0,2),"traps cannot be manually activated")
+	verify.call(d.discard_function(0,0),"traps can be discarded")
+	d = fresh()
+	d.sides[0].numbers.assign([number(20,3)])
+	d.sides[1].functions.assign([function(12),function(12)])
+	d.end_turn(0)
+	verify.call(d.score(0)==15 and d.sides[1].functions.size()==1,"tripwire checks end-turn score and slot order")
+	d = fresh()
+	d.sides[0].numbers.assign([number(20,3)])
+	d.sides[1].functions.assign([function(12)])
+	d.phase = LoadDuel.Phase.DECIDE
+	d.stop(0)
+	verify.call(d.score(0)==20 and d.sides[1].functions.size()==1,"stopping not an end-turn trap event")
+	d = fresh()
+	d.sides[1].stopped = true
+	d.sides[1].functions.assign([function(10),function(11),function(12)])
+	d.sides[0].functions.assign([function(0)])
+	d.phase = LoadDuel.Phase.DECIDE
+	d.sides[0].pile.assign([number(9,2)])
+	var stopped_score := d.score(1)
+	d.draw(0)
+	verify.call(d.score(0)==15 and d.sides[1].functions.size()==2,"stopped owner's snare responds to opponent draw")
+	d.play(0,0)
+	verify.call(d.score(0)==15 and d.sides[1].functions.size()==1,"stopped owner's counter responds to opponent effect")
+	d.sides[0].numbers[0].value += 5
+	d.end_turn(0)
+	verify.call(d.score(0)==15 and d.sides[1].functions.is_empty(),"stopped owner's tripwire responds to opponent end turn")
+	verify.call(d.sides[1].stopped and d.score(1)==stopped_score and d.sides[1].discard.size()==3 and d.load_total(1)==4,"stopped owner consumes traps and releases load without resuming turns")
+	CombatPassives.dispatch(d,"turn_ended",0)
+	verify.call(d.score(0)==15 and d.sides[1].discard.size()==3,"consumed traps never trigger twice")
+	d = fresh()
+	d.sides[0].functions.assign([function(6)])
+	d.sides[1].functions.assign([function(11)])
+	d.play(0,0)
+	verify.call(d.score(1)==8 and d.score(0)==7,"trap response does not recursively emit effect events")
+	d = fresh()
+	d.sides[0].functions.assign([function(5)])
+	d.play(0,0)
+	verify.call(d.score(0)==12,"rally boosts each number")
+	d = fresh()
+	d.active = 1
+	d.sides[1].functions.assign([function(7),function(10)])
+	d.opponent_step()
+	verify.call(d.sides[1].functions.size()==2 and d.active==0,"AI keeps bonus and armed trap")
+	d = fresh()
+	d.active = 1
+	d.sides[0].stopped = true
+	d.sides[1].functions.assign([function(7),function(10)])
+	d.opponent_step()
+	verify.call(d.sides[1].functions.size()==1 and d.sides[1].functions[0].definition.function_type=="bonus","AI discards dead trap but keeps bonus")
+	var opening: Array[CombatCard] = [CombatCatalog.number_card(9,2),CombatCatalog.number_card(9,2)]
+	var traps: Array[CombatCard] = [CombatCatalog.function_card(10),CombatCatalog.function_card(10)]
+	d.start(opening,traps,1)
+	verify.call(d.score(0)==18 and d.sides[1].functions.size()==2,"opening deal never triggers traps")
+	var profile := MemoryProfile.new()
+	var counts := {"effect":0,"bonus":0,"trap":0}
+	var keys := {}
+	for card in CombatCatalog.from_profile(profile):
+		if card.kind=="function":
+			counts[card.function_type] += 1
+			keys[card.key] = true
+	verify.call(counts=={"effect":9,"bonus":3,"trap":4} and keys.size()==13,"starter deck contains every design entry at specified counts")

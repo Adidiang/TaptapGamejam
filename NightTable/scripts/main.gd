@@ -2,7 +2,8 @@ extends "res://scripts/ui_base.gd"
 
 var profile := MemoryProfile.new()
 var run := NightRun.new()
-var battle: BlackjackMatch
+var battle: DuelEncounter
+var ai_generation := 0
 var choices: Array = []
 var reward_context := ""
 var reward_left := 0
@@ -115,121 +116,63 @@ func show_stake() -> void:
 	var amount := mini(run.hp,run.nominal_stake())
 	_label(content,"质押  %d  /  生命 %d" % [amount,run.hp],42,GOLD)
 	if boss:
-		_text(content,GameCatalog.BOSSES[run.act],24,TEXT)
+		_text(content,"新版负荷牌局 · 单局全押",24,TEXT)
 		_text(content,"单手全押：赢则回满生命，未爆但输则留1血；爆牌结束轮回。最终Boss必须赢下才能离开。",20)
 	else:
 		_text(content,"固定打满三手。2胜：质押全返并回复5生命；1胜：收回余量；0胜或质押耗尽：质押全失。",20)
-		_text(content,"基础注 %d。手牌1–3张损失1份，第4张2份，第5张3份。技能与遗物可减损。" % maxi(1,roundi(amount/10.0)),18)
+		_text(content,"基础注 %d。在场牌1–3张损失1份，第4张2份，5张及以上3份。" % maxi(1,roundi(amount/10.0)),18)
+	_text(content,"新版对战：旧技能、遗物、道具与Boss特殊能力暂不生效；局外获得与存档仍保留。",16)
 	_button(content,"质押并发牌     →",begin_battle,260)
 	_spacer(page)
 	_text(page,"生命不足时使用全部剩余生命。普通遭遇失败也可继续，并获得整理牌库的机会。",16)
 
 func begin_battle() -> void:
 	if screen != "stake": return
-	battle = BlackjackMatch.new()
+	battle = DuelEncounter.new()
 	battle.start(run)
 	show_encounter()
 
-func _cards(parent: Node,cards: Array[MemoryCard],hidden_index: int = -1,small: bool = false) -> void:
-	var row := _row(parent)
-	row.alignment = BoxContainer.ALIGNMENT_CENTER
-	for i in range(cards.size()):
-		var card := cards[i]
-		var hidden := i == hidden_index
-		var panel := PanelContainer.new()
-		panel.custom_minimum_size = Vector2(76 if small else 125,103 if small else 151)
-		panel.add_theme_stylebox_override("panel",_style(Color("283f49") if hidden else Color("e4ddc9"),GOLD,8))
-		row.add_child(panel)
-		var content := VBoxContainer.new()
-		panel.add_child(content)
-		var color := Color("9e4d46") if card.suit in [1,3] else Color("293c43")
-		_label(content,"?" if hidden else card.rank_text(),24 if small else 31,GOLD if hidden else color)
-		_label(content,"◇" if hidden else card.suit_text(),23 if small else 30,GOLD if hidden else color).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		if not small:
-			var upgraded: bool = card.rank in profile.upgrades
-			_label(content,GameCatalog.SKILLS[card.rank][0] if upgraded else card.memory_text(),13,Color("655e50"))
-			panel.tooltip_text = GameCatalog.skill_text(card.rank) if upgraded else "未升级 · "+card.memory_text()
-			if battle.multipliers.get(card.id,1) == 2: _label(content,"点数 ×2",12,Color("9e4d46"))
-
 func show_encounter() -> void:
-	_new_page("encounter","最后一手" if battle.boss else "灯下的牌桌",GameCatalog.BOSSES[run.act] if battle.boss else "思绪：你又要抽一张吗？")
-	var top := _row(page)
-	_label(top,"质押 %d / %d   ·   桌外生命 %d" % [battle.pool,battle.stake,battle.reserve],22,GOLD).size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_label(top,"第 %d 手  /  %d 胜 %d 负" % [mini(battle.resolved+1,3) if battle.phase <= BlackjackMatch.Phase.BUST_WINDOW else battle.resolved,battle.wins,battle.losses],18)
-	var body := _row(page)
-	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	var board := Control.new()
-	board.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	board.custom_minimum_size = Vector2(740,410)
-	body.add_child(board)
-	var stage := TableStage.new()
-	stage.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	stage.decorative_cards = false
-	board.add_child(stage)
-	var overlay := MarginContainer.new()
-	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for edge in ["top","bottom","left","right"]: overlay.add_theme_constant_override("margin_"+edge,16)
-	board.add_child(overlay)
-	var column := VBoxContainer.new()
-	column.add_theme_constant_override("separation",12)
-	overlay.add_child(column)
-	var dealer_caption := "庄家 · %d 点" % battle.dealer.hand_points() if battle.reveal else "庄家 · 一张暗牌"
-	_label(column,dealer_caption,18).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_cards(column,battle.dealer.hand,-1 if battle.reveal else 1,true)
-	_spacer(column)
-	var state_text := "耐受区" if battle.score() in range(17,22) else ("失控" if battle.score()>21 else "继续或停下")
-	_label(column,"你的手牌 · %d 点 · %s" % [battle.score(),state_text],24,GOLD).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_cards(column,battle.player.hand)
-	var sidebar := _panel(body)
-	sidebar.custom_minimum_size.x = 280
-	sidebar.add_theme_constant_override("separation",6)
-	_label(sidebar,"这一手",24,GOLD)
-	_label(sidebar,"全押 · 爆牌将结束轮回" if battle.boss else "基础注 %d · 输牌预计损失 %d" % [battle.base_bet,battle.current_loss()],16)
-	_label(sidebar,"你的牌库 %d · 弃牌 %d" % [battle.player.draw_pile.size(),battle.player.discard_pile.size()],16,MUTED)
-	if not battle.peek_text.is_empty(): _text(sidebar,battle.peek_text,17,GOLD)
-	if not battle.stolen.is_empty(): _text(sidebar,"临时被偷："+battle.stolen,16)
-	_label(sidebar,"随身道具",18,GOLD)
-	if run.items.is_empty(): _text(sidebar,"暂无道具",16)
-	for index in range(run.items.size()):
-		var id: String = run.items[index]
-		var button := _button(sidebar,GameCatalog.ITEMS[id][0],func(): _battle_action(func(): battle.use_item(id)))
-		button.disabled = not battle.can_use(id)
-		button.tooltip_text = GameCatalog.ITEMS[id][1]
-	if battle.can_swap(): _button(sidebar,"发动 5 · 置换",func(): _battle_action(battle.swap_five))
-	_spacer(sidebar)
-	_text(sidebar,"每手限用1件；Boss整场限1件。\n五张未爆直接获胜。",15)
-	for child in sidebar.get_children():
-		if child is Button:
-			child.custom_minimum_size.y = 38
-			for state in ["normal","hover","pressed","disabled","focus"]:
-				var compact := child.get_theme_stylebox(state).duplicate() as StyleBox
-				compact.content_margin_top = 6
-				compact.content_margin_bottom = 6
-				child.add_theme_stylebox_override(state,compact)
-	var feedback := battle.hand_result if not battle.hand_result.is_empty() else ("爆牌了：使用回溯，或确认结算。" if battle.phase == BlackjackMatch.Phase.BUST_WINDOW else "选择要牌或停牌。")
-	_label(page,feedback,22,GOLD)
-	var actions := _row(page)
-	if battle.phase == BlackjackMatch.Phase.PLAYER:
-		_button(actions,"要牌     +",func(): _battle_action(battle.hit),210)
-		var stand_button := _button(actions,"停牌     →",func(): _battle_action(battle.stand),210)
-		stand_button.disabled = not battle.can_stand()
-		if stand_button.disabled: _label(actions,"低语：至少抽到第3张。",16,MUTED)
-	elif battle.phase == BlackjackMatch.Phase.BUST_WINDOW:
-		_button(actions,"确认爆牌",func(): _battle_action(battle.confirm_bust),230)
-	elif battle.phase == BlackjackMatch.Phase.HAND_OVER:
-		_button(actions,"下一手     →",func(): _battle_action(battle.deal_hand),260)
-	else: _button(actions,"查看遭遇结果     →",settle_battle,260)
-	_button(actions,"规则",func(): show_rules(show_encounter),100)
-	var recent: Array[String] = battle.log_lines.slice(maxi(0,battle.log_lines.size()-2))
-	_text(page," / ".join(recent),15)
+	ai_generation += 1
+	DuelView.render(self)
+	if battle.phase == DuelEncounter.Phase.PLAYING and battle.duel.active == 1 and not ("--smoke" in OS.get_cmdline_user_args() or "--capture" in OS.get_cmdline_user_args()):
+		_opponent_tick(ai_generation)
 
-func _battle_action(action: Callable) -> void:
+func _opponent_tick(generation: int) -> void:
+	await get_tree().create_timer(0.65).timeout
+	if not is_inside_tree() or screen != "encounter" or generation != ai_generation: return
+	if battle.phase != DuelEncounter.Phase.PLAYING: return
+	battle.duel.opponent_step()
+	battle.resolve_if_finished()
+	show_encounter()
+
+func duel_action(action: String) -> void:
+	if screen != "encounter" or battle.phase != DuelEncounter.Phase.PLAYING: return
+	match action:
+		"draw": battle.duel.draw(0)
+		"stop": battle.duel.stop(0)
+		"end_turn": battle.duel.end_turn(0)
+	battle.resolve_if_finished()
+	show_encounter()
+
+func play_function(index: int) -> void:
+	if screen != "encounter" or battle.phase != DuelEncounter.Phase.PLAYING: return
+	battle.duel.play(0,index)
+	battle.resolve_if_finished()
+	show_encounter()
+
+func discard_function(index: int) -> void:
+	if screen != "encounter" or battle.phase != DuelEncounter.Phase.PLAYING: return
+	battle.duel.discard_function(0,index)
+	show_encounter()
+
+func next_duel() -> void:
 	if screen != "encounter": return
-	action.call()
+	battle.deal_hand()
 	show_encounter()
 
 func settle_battle() -> void:
-	if screen != "encounter" or battle.phase != BlackjackMatch.Phase.MATCH_OVER: return
+	if screen != "encounter" or battle.phase != DuelEncounter.Phase.MATCH_OVER: return
 	if run.hp <= 0:
 		run.finish_run(false)
 		show_ending()
@@ -428,15 +371,15 @@ func show_ending() -> void:
 	_spacer(page)
 
 func show_rules(back_action: Callable) -> void:
-	_new_page("rules","停在失控之前","规则速查 · 余夜 0.2")
+	_new_page("rules","数字与负荷","局内规则 · 新版试作")
 	var content := _panel(page)
-	for text in ["双方独立牌库。庄家一明一暗；要牌接近21，停牌后比较大小。A自动按1/11计算。","起手A+任意10点牌为黑杰克，直接获胜；5张未爆为五龙，直接获胜。","庄家16及以下必抽，17及以上停。平局不扣质押，前两次重开，第三次普通局判胜、Boss判负。","普通遭遇固定三手：2胜全额返还质押并回5血；1胜返还余量；0胜失去全部质押。","战斗中的所有回血只恢复质押池；场外治疗恢复生命，上限100。","技能按点数共享升级。牌库、升级、删除记录永久保存；遗物与道具仅本轮有效。","要牌爆牌后可以使用回溯救场；每手道具限1件，Boss整场限1件。","三幕分支路线，各有一场Boss。最后Boss赢下且累计删8张旧记忆，触发放下结局。"]:
-		_text(content,text,19,TEXT)
+	for text in ["数字牌明置，功能牌自己可见、对方只见牌背。每张牌负荷1–5，总负荷上限21。","开局各抽2张，你先操作，不额外摸牌。之后回合开始选择摸一张或停牌。","效果牌主动使用；加成牌留到结算；陷阱自动触发一次。三类牌均可主动弃掉释放负荷。","摸牌后负荷超过21立即判负，没有爆牌救场。功能槽3格，满槽摸到功能牌直接弃掉，不增加负荷。","自己停牌后陷阱仍响应对方行动。双方停牌比较结算点数：先加固定值，再加百分比，最后向下取整。","初始发牌不触发陷阱，摸牌超限先判负。弃牌不回收，牌库空后下次回合自动停牌。","局外暂保留：普通遭遇三局、Boss一局，前两次平局重开、第三次普通判胜/Boss判负。","过渡说明：A–9映射数字牌，10/J/Q/K映射功能牌。旧点数技能、道具、遗物及Boss特殊能力暂不作用于新版牌局。"]:
+		_text(content,text,18,TEXT)
 	_spacer(page)
 	_button(page,"返回",back_action,220)
 
 func _capture_screens() -> void:
-	for target in ["menu","map","encounter","encounter_full","reward","shop","deck","ending"]:
+	for target in ["menu","map","encounter","encounter_full","encounter_settlement","reward","shop","deck","ending"]:
 		match target:
 			"menu": show_menu()
 			"map":
@@ -446,11 +389,17 @@ func _capture_screens() -> void:
 				enter_node(run.available_ids()[0])
 				begin_battle()
 			"encounter_full":
-				run.items.assign(["undo","peek","heal"])
-				profile.upgrades.append(5)
-				battle.player.hand[0].rank = 5
-				battle.peek_text = "接下来：红桃 3、黑桃 K"
-				battle.stolen = "黑桃 A"
+				battle.duel.sides[0].functions.clear()
+				for i in [0,7,10]: battle.duel.sides[0].functions.append(CombatCatalog.function_card(i).instance(900+i))
+				battle.duel.sides[0].numbers.clear()
+				for i in range(8): battle.duel.sides[0].numbers.append(CombatCatalog.number_card(i+1,1).instance(950+i))
+				show_encounter()
+			"encounter_settlement":
+				battle.duel.sides[0].stopped = true
+				battle.duel.sides[1].functions.assign([CombatCatalog.function_card(8).instance(999)])
+				battle.duel.sides[1].stopped = true
+				battle.duel._advance()
+				battle.resolve_if_finished()
 				show_encounter()
 			"reward": _open_reward("success",1)
 			"shop":

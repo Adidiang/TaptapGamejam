@@ -59,7 +59,7 @@ func _new_page(name_of_screen: String, heading: String, subtitle: String) -> voi
 	var top := HBoxContainer.new()
 	page.add_child(top)
 	_label(top, "N / T     余夜", 20, GOLD).size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_label(top, "可玩原型   /   0.2", 15, MUTED)
+	_label(top, "可玩原型   /   0.4", 15, MUTED)
 	var line := HSeparator.new()
 	page.add_child(line)
 	_label(page, heading, 36)

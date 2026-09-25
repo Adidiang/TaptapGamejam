@@ -1,6 +1,6 @@
 class_name BlackjackMatch
 extends RefCounted
-## Pure rules/state machine. UI never decides win/loss or changes the stake.
+## Legacy v0.2 rules, retained for regression only. Active gameplay uses DuelEncounter.
 enum Phase { PLAYER, BUST_WINDOW, HAND_OVER, MATCH_OVER }
 var run: NightRun
 var player: MemoryDeck
