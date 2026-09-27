@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://bstudio77777"]
+
+[ext_resource type="PackedScene" uid="uid://blightenv1n1ght" path="res://scenes/lighting_env.tscn" id="1_lighting"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ball"]
+albedo_color = Color(0.9, 0.9, 0.9, 1)
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="Mat_Box"]
+albedo_color = Color(0.5, 0.7, 0.5, 1)
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_Cap"]
+albedo_color = Color(0.7, 0.5, 0.5, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_Wall"]
+albedo_color = Color(0.6, 0.6, 0.6, 1)
+roughness = 0.8
+
+[sub_resource type="SphereMesh" id="Sphere_ball"]
+radius = 1.0
+
+[sub_resource type="BoxMesh" id="Box_box"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="Cap_cap"]
+radius = 0.5
+height = 2.0
+
+[sub_resource type="PlaneMesh" id="Plane_floor"]
+size = Vector2(10, 10)
+
+[sub_resource type="PlaneMesh" id="Plane_wall"]
+size = Vector2(8, 4)
+
+[node name="LightingStudio" type="Node3D"]
+
+[node name="LightingEnv" parent="." instance=ExtResource("1_lighting")]
+
+[node name="Studio" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+
+[node name="Floor" type="MeshInstance3D" parent="Studio"]
+mesh = SubResource("Plane_floor")
+
+[node name="Ball" type="MeshInstance3D" parent="Studio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
+mesh = SubResource("Sphere_ball")
+material_override = SubResource("Mat_Ball")
+
+[node name="Box" type="MeshInstance3D" parent="Studio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("Box_box")
+material_override = SubResource("Mat_Box")
+
+[node name="Capsule" type="MeshInstance3D" parent="Studio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
+mesh = SubResource("Cap_cap")
+material_override = SubResource("Mat_Cap")
+
+[node name="Wall" type="MeshInstance3D" parent="Studio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4)
+mesh = SubResource("Plane_wall")
+material_override = SubResource("Mat_Wall")
+
+[node name="SideCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.97815, 0.20791, 0, -0.20791, 0.97815, 0, 4.4, 40)
+fov = 35.0
+current = true
+
+[node name="FrontCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 40)
+fov = 35.0
+
+[node name="TopCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0, -1, 0, 1, 0, 0, 40, 0)
+fov = 35.0

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 600" width="1400" height="600" font-family="system-ui, 'Segoe UI', 'Microsoft YaHei', sans-serif">
+  <title>Level 1 卡牌王国 —— 白盒正视图</title>
+
+  <rect x="0" y="0" width="1400" height="600" fill="#ffffff"/>
+
+  <text x="90" y="42" font-size="20" font-weight="600" fill="#1a1a1a">Level 1「卡牌王国」· 白盒正视图</text>
+  <text x="90" y="66" font-size="13" fill="#6b6b6b">横向比例 8.125 px/m ｜ 普通格 16 m 宽，层高 7.5 m，顶层净高 11 m，人物 1.7 m ｜ X 轴 = 房间排列方向（垂直间距为示意，非严格比例）</text>
+
+  <text x="520" y="106" font-size="13" font-weight="600" fill="#6b6b6b">顶层 TOP</text>
+  <rect x="520" y="114" width="375" height="80" rx="6" fill="#E7DCF0" stroke="#9B7BB8" stroke-width="1"/>
+  <text x="707" y="147" font-size="14" font-weight="600" fill="#513768" text-anchor="middle">TOP FLOOR · BOSS HALL</text>
+  <text x="707" y="168" font-size="12" fill="#513768" text-anchor="middle" opacity="0.75">Boss 房 · 46 m 宽</text>
+
+  <text x="220" y="212" font-size="13" font-weight="600" fill="#6b6b6b">二楼 2F</text>
+  <rect x="220" y="220" width="130" height="80" rx="6" fill="#F3DEDA" stroke="#C08A80" stroke-width="1"/>
+  <text x="285" y="253" font-size="13" font-weight="600" fill="#7A3A32" text-anchor="middle">2F-01</text>
+  <text x="285" y="274" font-size="11" fill="#7A3A32" text-anchor="middle">战斗</text>
+  <rect x="350" y="220" width="130" height="80" rx="6" fill="#DDE5F4" stroke="#8FA3CC" stroke-width="1"/>
+  <text x="415" y="253" font-size="13" font-weight="600" fill="#33497A" text-anchor="middle">2F-02</text>
+  <text x="415" y="274" font-size="11" fill="#33497A" text-anchor="middle">事件</text>
+  <rect x="480" y="220" width="130" height="80" rx="6" fill="#F3DEDA" stroke="#C08A80" stroke-width="1"/>
+  <text x="545" y="253" font-size="13" font-weight="600" fill="#7A3A32" text-anchor="middle">2F-03</text>
+  <text x="545" y="274" font-size="11" fill="#7A3A32" text-anchor="middle">战斗</text>
+
+  <rect x="610" y="220" width="195" height="80" rx="6" fill="#EDE6D5" stroke="#B8A87F" stroke-width="1"/>
+  <text x="707" y="251" font-size="13" font-weight="600" fill="#5F5236" text-anchor="middle">二楼大堂</text>
+  <text x="707" y="272" font-size="11" fill="#5F5236" text-anchor="middle">↑ 上顶层（需钥匙）</text>
+
+  <rect x="805" y="220" width="130" height="80" rx="6" fill="#DCEFE6" stroke="#86BCA0" stroke-width="1"/>
+  <text x="870" y="253" font-size="13" font-weight="600" fill="#2F6349" text-anchor="middle">2F-04</text>
+  <text x="870" y="274" font-size="11" fill="#2F6349" text-anchor="middle">调查</text>
+  <rect x="935" y="220" width="130" height="80" rx="6" fill="#F3DEDA" stroke="#C08A80" stroke-width="1"/>
+  <text x="1000" y="253" font-size="13" font-weight="600" fill="#7A3A32" text-anchor="middle">2F-05</text>
+  <text x="1000" y="274" font-size="11" fill="#7A3A32" text-anchor="middle">战斗 · 掉钥匙</text>
+  <rect x="1065" y="220" width="130" height="80" rx="6" fill="#DDE5F4" stroke="#8FA3CC" stroke-width="1"/>
+  <text x="1130" y="253" font-size="13" font-weight="600" fill="#33497A" text-anchor="middle">2F-06</text>
+  <text x="1130" y="274" font-size="11" fill="#33497A" text-anchor="middle">事件</text>
+
+  <line x1="80" y1="308" x2="1335" y2="308" stroke="#d0d0d0" stroke-width="2"/>
+  <text x="1345" y="313" font-size="10" fill="#a0a0a0">楼板</text>
+
+  <text x="90" y="342" font-size="13" font-weight="600" fill="#6b6b6b">一楼 1F</text>
+  <rect x="90" y="350" width="130" height="80" rx="6" fill="#F3DEDA" stroke="#C08A80" stroke-width="1"/>
+  <text x="155" y="383" font-size="13" font-weight="600" fill="#7A3A32" text-anchor="middle">1F-01</text>
+  <text x="155" y="404" font-size="11" fill="#7A3A32" text-anchor="middle">战斗 · 出生点</text>
+
+  <rect x="220" y="350" width="130" height="80" rx="6" fill="#F5E6B8" stroke="#C2A34A" stroke-width="1.5"/>
+  <text x="285" y="383" font-size="13" font-weight="600" fill="#6E5717" text-anchor="middle">1F-02</text>
+  <text x="285" y="404" font-size="11" fill="#6E5717" text-anchor="middle">商店 ↑ 上 2F</text>
+
+  <rect x="350" y="350" width="130" height="80" rx="6" fill="#DDE5F4" stroke="#8FA3CC" stroke-width="1"/>
+  <text x="415" y="383" font-size="13" font-weight="600" fill="#33497A" text-anchor="middle">1F-03</text>
+  <text x="415" y="404" font-size="11" fill="#33497A" text-anchor="middle">事件</text>
+  <rect x="480" y="350" width="130" height="80" rx="6" fill="#F3DEDA" stroke="#C08A80" stroke-width="1"/>
+  <text x="545" y="383" font-size="13" font-weight="600" fill="#7A3A32" text-anchor="middle">1F-04</text>
+  <text x="545" y="404" font-size="11" fill="#7A3A32" text-anchor="middle">战斗</text>
+
+  <rect x="610" y="350" width="195" height="80" rx="6" fill="#EDE6D5" stroke="#B8A87F" stroke-width="1"/>
+  <text x="707" y="381" font-size="13" font-weight="600" fill="#5F5236" text-anchor="middle">一楼大堂</text>
+  <text x="707" y="402" font-size="11" fill="#5F5236" text-anchor="middle">↑ 上二楼楼梯</text>
+
+  <rect x="805" y="350" width="130" height="80" rx="6" fill="#DCEFE6" stroke="#86BCA0" stroke-width="1"/>
+  <text x="870" y="383" font-size="13" font-weight="600" fill="#2F6349" text-anchor="middle">1F-05</text>
+  <text x="870" y="404" font-size="11" fill="#2F6349" text-anchor="middle">调查</text>
+  <rect x="935" y="350" width="130" height="80" rx="6" fill="#F3DEDA" stroke="#C08A80" stroke-width="1"/>
+  <text x="1000" y="383" font-size="13" font-weight="600" fill="#7A3A32" text-anchor="middle">1F-06</text>
+  <text x="1000" y="404" font-size="11" fill="#7A3A32" text-anchor="middle">战斗</text>
+
+  <rect x="1065" y="350" width="130" height="80" rx="6" fill="#F5E6B8" stroke="#C2A34A" stroke-width="1.5"/>
+  <text x="1130" y="383" font-size="13" font-weight="600" fill="#6E5717" text-anchor="middle">1F-07</text>
+  <text x="1130" y="404" font-size="11" fill="#6E5717" text-anchor="middle">商店 ↑ 上 2F</text>
+
+  <rect x="1195" y="350" width="130" height="80" rx="6" fill="#DDE5F4" stroke="#8FA3CC" stroke-width="1"/>
+  <text x="1260" y="383" font-size="13" font-weight="600" fill="#33497A" text-anchor="middle">1F-08</text>
+  <text x="1260" y="404" font-size="11" fill="#33497A" text-anchor="middle">事件</text>
+
+  <line x1="80" y1="438" x2="1335" y2="438" stroke="#d0d0d0" stroke-width="2"/>
+  <text x="1345" y="443" font-size="10" fill="#a0a0a0">地面</text>
+
+  <path d="M285 350 L285 300" stroke="#C2A34A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <path d="M1130 350 L1130 300" stroke="#C2A34A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <path d="M707 350 L707 300" stroke="#B8A87F" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <path d="M707 220 L707 194" stroke="#9B7BB8" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <text x="90" y="490" font-size="13" font-weight="600" fill="#1a1a1a">图例</text>
+  <rect x="90" y="502" width="16" height="16" rx="3" fill="#F3DEDA" stroke="#C08A80" stroke-width="1"/>
+  <text x="114" y="515" font-size="12" fill="#444444">战斗房间</text>
+  <rect x="196" y="502" width="16" height="16" rx="3" fill="#DDE5F4" stroke="#8FA3CC" stroke-width="1"/>
+  <text x="220" y="515" font-size="12" fill="#444444">事件房间</text>
+  <rect x="302" y="502" width="16" height="16" rx="3" fill="#DCEFE6" stroke="#86BCA0" stroke-width="1"/>
+  <text x="326" y="515" font-size="12" fill="#444444">调查房间</text>
+  <rect x="408" y="502" width="16" height="16" rx="3" fill="#F5E6B8" stroke="#C2A34A" stroke-width="1.5"/>
+  <text x="432" y="515" font-size="12" fill="#444444">商店（可通向上下方楼层）</text>
+  <rect x="622" y="502" width="16" height="16" rx="3" fill="#EDE6D5" stroke="#B8A87F" stroke-width="1"/>
+  <text x="646" y="515" font-size="12" fill="#444444">大堂</text>
+  <rect x="700" y="502" width="16" height="16" rx="3" fill="#E7DCF0" stroke="#9B7BB8" stroke-width="1"/>
+  <text x="724" y="515" font-size="12" fill="#444444">Boss 房</text>
+  <line x1="800" y1="510" x2="836" y2="510" stroke="#C2A34A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="844" y="515" font-size="12" fill="#444444">竖直连接</text>
+
+  <text x="90" y="552" font-size="11" fill="#8a8a8a">注：设计图标注「一个大关内每个类型房间数量固定、具体位置随机」，此处按每层 3 战斗 / 2 事件 / 1 调查 写了一份样板用于走查，接玩法时换成按大关种子随机抽取。</text>
+  <text x="90" y="572" font-size="11" fill="#8a8a8a">二楼大堂与房间之间为单向门：只能从房间进大堂，返回一次后解锁。</text>
+</svg>

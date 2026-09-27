@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dvy17fhwstnsh"]
+
+[ext_resource type="PackedScene" uid="uid://hw0fw71l2qu4" path="res://art/whitebox.glb" id="1_whitebox"]
+[ext_resource type="PackedScene" uid="uid://d2jb68y1gqym8" path="res://scenes/lighting_env.tscn" id="2_lighting"]
+[ext_resource type="Script" uid="uid://bcmg80msi12s1" path="res://scripts/art_preview.gd" id="3_artscript"]
+
+[node name="ArtPreview" type="Node3D" unique_id=1439632103]
+script = ExtResource("3_artscript")
+
+[node name="LightingEnv" parent="." unique_id=1644187969 instance=ExtResource("2_lighting")]
+
+[node name="Model" parent="." unique_id=1713353046 instance=ExtResource("1_whitebox")]
+
+[node name="SideCam" type="Camera3D" parent="." unique_id=971127747]
+transform = Transform3D(1, 0, 0, 0, 0.97815, 0.20791, 0, -0.20791, 0.97815, -8, 4.4, 14)
+fov = 35.0

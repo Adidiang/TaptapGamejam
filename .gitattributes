@@ -6,3 +6,28 @@
 *.md text eol=lf
 *.ps1 text eol=crlf
 *.cmd text eol=crlf
+
+# ---- Git LFS：二进制大资源 ----
+# 图片（*.svg 是文本，故意不进 LFS，否则看不到 diff）
+*.png  filter=lfs diff=lfs merge=lfs -text
+*.jpg  filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.JPEG filter=lfs diff=lfs merge=lfs -text
+*.tif  filter=lfs diff=lfs merge=lfs -text
+*.tiff filter=lfs diff=lfs merge=lfs -text
+*.psd  filter=lfs diff=lfs merge=lfs -text lockable
+# 音频
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+*.flac filter=lfs diff=lfs merge=lfs -text
+# 3D 模型（不可合并，加 lockable）
+*.blend  filter=lfs diff=lfs merge=lfs -text lockable
+*.blend1 filter=lfs diff=lfs merge=lfs -text
+*.glb  filter=lfs diff=lfs merge=lfs -text lockable
+*.gltf filter=lfs diff=lfs merge=lfs -text
+*.fbx  filter=lfs diff=lfs merge=lfs -text lockable
+*.obj  filter=lfs diff=lfs merge=lfs -text
+# 视频
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
