@@ -15,3 +15,14 @@
 *.log
 Thumbs.db
 Desktop.ini
+
+# DCC 产物：Blender 每次保存都会留一个 .blend1 备份，别进版本库
+*.blend1
+__pycache__/
+
+# 白盒早期测试留下的孤儿文件（whitebox_test.glb 本体已删除，
+# 只剩提取出的贴图和 .import，无任何场景引用）
+NightTable/art/whitebox_test*
+/酒馆场景美术素材.zip
+/酒馆场景美术素材/
+/NightTable/captures/room_studies/

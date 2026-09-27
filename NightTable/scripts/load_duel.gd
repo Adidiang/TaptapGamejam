@@ -14,8 +14,16 @@ var slots := CombatCatalog.SLOT_LIMIT
 var limit := CombatCatalog.LOAD_LIMIT
 var turns := 0
 var final_scores: Array = []
+var public_enabled := false # Legacy simulations opt out; castle encounters enable explicitly.
+var public_pile: Array = []
+var public_rng := RandomNumberGenerator.new()
+var public_serial := 100000
 
-func start(player_cards: Array[CombatCard], opponent_cards: Array[CombatCard], seed_value: int) -> void:
+func start(player_cards: Array[CombatCard], opponent_cards: Array[CombatCard], seed_value: int, player_relics: Array = [], use_public: bool = false) -> void:
+	public_enabled = use_public
+	public_pile.clear()
+	public_serial = 100000
+	public_rng.seed = seed_value ^ 734927
 	sides.clear()
 	events.clear()
 	active = 0
@@ -30,6 +38,7 @@ func start(player_cards: Array[CombatCard], opponent_cards: Array[CombatCard], s
 	var serial := 0
 	for definitions in [player_cards,opponent_cards]:
 		var side := {"pile":[],"numbers":[],"functions":[],"discard":[],"stopped":false,"first":true,"peek":[]}
+		side.merge({"relics":player_relics.duplicate() if sides.is_empty() else [],"public_draws":0,"weight_used":false,"watch_bonus":0,"trap_bonus":0})
 		for definition in definitions:
 			serial += 1
 			side.pile.append(definition.instance(serial))
@@ -43,6 +52,8 @@ func start(player_cards: Array[CombatCard], opponent_cards: Array[CombatCard], s
 		for i in range(2):
 			if phase != Phase.OVER: _draw(owner,false)
 	if phase != Phase.OVER:
+		for side in sides:
+			if "R09" in side.relics and not side.pile.is_empty(): side.peek.append(side.pile.back().definition.title)
 		sides[0].first = false
 		note("双方各抽两张。你先操作，首回合不额外摸牌。")
 
@@ -64,27 +75,61 @@ func load_total(owner: int) -> int:
 func projected_score(owner: int) -> int:
 	return CombatPassives.settlement(self,owner).total
 
+func load_limit(owner: int) -> int:
+	return maxi(1,limit+RelicCatalog.limit_delta(sides[owner].relics))
+
+func slot_limit(owner: int) -> int:
+	return maxi(1,slots+RelicCatalog.slot_delta(sides[owner].relics))
+
+func public_risk(owner: int) -> int:
+	return mini(80,(sides[owner].public_draws+1)*10)
+
+func _refill_public() -> void:
+	var definitions: Array[CombatCard] = []
+	for value in range(1,10):
+		for copy in range(4): definitions.append(CombatCatalog.number_card(value,ceili(value/2.0)))
+	for index in range(CombatCatalog.FUNCTIONS.size()): definitions.append(CombatCatalog.function_card(index))
+	for definition in definitions:
+		public_serial += 1
+		public_pile.append(definition.instance(public_serial))
+	for i in range(public_pile.size()-1,0,-1):
+		var j := public_rng.randi_range(0,i)
+		var swap: Dictionary = public_pile[i]
+		public_pile[i] = public_pile[j]
+		public_pile[j] = swap
+
 func _draw(owner: int, trigger_traps: bool = true) -> void:
 	var side: Dictionary = sides[owner]
 	side.peek.clear()
-	if side.pile.is_empty(): return
-	var card: Dictionary = side.pile.pop_back()
+	var card: Dictionary
+	if side.pile.is_empty():
+		if not public_enabled: return
+		var risk := public_risk(owner)
+		side.public_draws += 1
+		if public_rng.randf()<risk/100.0:
+			_finish(1-owner,"%s公共摸牌爆掉（本次概率%d%%），立即落败。" % [label_for(owner),risk])
+			return
+		if public_pile.is_empty(): _refill_public()
+		card = public_pile.pop_back()
+		note("%s通过公共摸牌风险判定（%d%%）。" % [label_for(owner),risk])
+	else: card = side.pile.pop_back()
 	var definition: CombatCard = card.definition
-	if definition.kind == "function" and side.functions.size() >= slots:
+	if definition.kind == "function" and side.functions.size() >= slot_limit(owner):
 		side.discard.append(card)
 		note("%s功能槽已满，摸到的功能牌被弃掉。" % label_for(owner))
 		return
 	side["numbers" if definition.kind == "number" else "functions"].append(card)
+	if definition.kind == "number": RelicCatalog.on_number(side,card)
 	note("%s摸到%s。" % [label_for(owner),definition.title if definition.kind == "number" or owner == 0 else "一张功能暗牌"])
-	if load_total(owner) > limit:
+	if load_total(owner) > load_limit(owner):
 		overloaded = owner
-		_finish(1-owner,"%s负荷超过%d，立即落败。" % [label_for(owner),limit])
+		_finish(1-owner,"%s负荷超过%d，立即落败。" % [label_for(owner),load_limit(owner)])
 		return
 	if trigger_traps and definition.kind == "number": CombatPassives.dispatch(self,"number_drawn",owner,card)
 
 func draw(owner: int) -> bool:
 	if phase != Phase.DECIDE or owner != active or sides[owner].stopped: return false
-	if sides[owner].pile.is_empty(): return stop(owner)
+	if sides[owner].pile.is_empty() and not public_enabled: return stop(owner)
 	phase = Phase.ACTION
 	_draw(owner)
 	return true
@@ -128,6 +173,7 @@ func end_turn(owner: int) -> bool:
 func stop(owner: int) -> bool:
 	if phase != Phase.DECIDE or owner != active: return false
 	sides[owner].stopped = true
+	RelicCatalog.on_stop(sides[owner],load_total(owner))
 	note("%s停牌，数字%d已锁定。" % [label_for(owner),score(owner)])
 	_advance()
 	return true
@@ -145,7 +191,7 @@ func _advance() -> void:
 	active = next
 	phase = Phase.ACTION if sides[active].first else Phase.DECIDE
 	sides[active].first = false
-	if phase == Phase.DECIDE and sides[active].pile.is_empty(): stop(active)
+	if phase == Phase.DECIDE and sides[active].pile.is_empty() and not public_enabled: stop(active)
 
 func _finish(result: int, message: String) -> void:
 	winner = result
@@ -161,7 +207,7 @@ func opponent_step() -> void:
 	if phase == Phase.OVER or active != 1: return
 	if phase == Phase.DECIDE:
 		var ahead := projected_score(1) > score(0)
-		if (sides[0].stopped and ahead) or load_total(1) >= 17:
+		if (sides[0].stopped and ahead) or load_total(1) >= load_limit(1)-4 or (sides[1].pile.is_empty() and public_risk(1)>=40 and not sides[0].stopped):
 			stop(1)
 		else: draw(1)
 		return

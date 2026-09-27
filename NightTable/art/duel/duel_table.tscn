@@ -1,0 +1,69 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/duel_table_art.gd" id="1_yb1qt"]
+[ext_resource type="ArrayMesh" path="res://art/tavern_library/meshes/table_rectangle_01.res" id="2_5e5l6"]
+[ext_resource type="ArrayMesh" path="res://art/tavern_library/meshes/candlestick_01.res" id="3_v6uje"]
+[ext_resource type="ArrayMesh" path="res://art/tavern_library/meshes/candlestick_02.res" id="4_qbqgr"]
+[ext_resource type="ArrayMesh" path="res://art/tavern_library/meshes/bookpile_01.res" id="5_fxdt7"]
+[ext_resource type="ArrayMesh" path="res://art/tavern_library/meshes/tankard_01.res" id="6_v2g3d"]
+[ext_resource type="ArrayMesh" path="res://art/tavern_library/meshes/bottle_02.res" id="7_pxhrn"]
+
+[sub_resource type="Environment" id="Environment_0yq38"]
+background_mode = 1
+background_color = Color(0.011764706, 0.015686275, 0.019607844, 1)
+ambient_light_source = 2
+
+[node name="DuelTable" type="Node3D" unique_id=1272451534]
+script = ExtResource("1_yb1qt")
+
+[node name="table_rectangle_01" type="MeshInstance3D" parent="." unique_id=11638957]
+transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 3, 0, -1.18, 0)
+mesh = ExtResource("2_5e5l6")
+
+[node name="candlestick_01" type="MeshInstance3D" parent="." unique_id=829990795]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, -5.4, 0, -3)
+mesh = ExtResource("3_v6uje")
+
+[node name="candlestick_02" type="MeshInstance3D" parent="." unique_id=785759327]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 5.4, 0, -3)
+mesh = ExtResource("4_qbqgr")
+
+[node name="bookpile_01" type="MeshInstance3D" parent="." unique_id=660065003]
+transform = Transform3D(1.3314792, 0, 0.4326238, 0, 1.4, 0, -0.4326238, 0, 1.3314792, -4.3, 0, 1)
+mesh = ExtResource("5_fxdt7")
+
+[node name="tankard_01" type="MeshInstance3D" parent="." unique_id=1419713366]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 4.4, 0, 0.5)
+mesh = ExtResource("6_v2g3d")
+
+[node name="bottle_02" type="MeshInstance3D" parent="." unique_id=892874856]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 3.9, 0, -2.8)
+mesh = ExtResource("7_pxhrn")
+
+[node name="CandleLeft" type="OmniLight3D" parent="." unique_id=2130674461]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 2, -3)
+light_color = Color(1, 0.75686276, 0.5176471, 1)
+light_energy = 1.6
+shadow_enabled = true
+omni_range = 9.0
+
+[node name="CandleRight" type="OmniLight3D" parent="." unique_id=452910485]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 2, -3)
+light_color = Color(1, 0.75686276, 0.5176471, 1)
+light_energy = 1.6
+shadow_enabled = true
+omni_range = 9.0
+
+[node name="TableFill" type="OmniLight3D" parent="." unique_id=169851185]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 1)
+light_color = Color(0.8392157, 0.6862745, 0.47058824, 1)
+light_energy = 0.8
+omni_range = 9.0
+
+[node name="Environment" type="WorldEnvironment" parent="." unique_id=447963102]
+environment = SubResource("Environment_0yq38")
+
+[node name="Camera" type="Camera3D" parent="." unique_id=780273694]
+transform = Transform3D(1, 0, 0, 0, 0.7313537, 0.6819984, 0, -0.6819984, 0.7313537, 0, 6.1, 7)
+current = true
+fov = 56.0

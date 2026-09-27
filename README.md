@@ -4,6 +4,8 @@ Godot 4.7 的 21 点肉鸽游戏原型。游戏项目位于 [NightTable](NightTa
 
 最新设计依据：[本地游戏策划案](NightTable/docs/游戏策划案.md)。数字牌、功能牌与负荷机制已接入局内，临时卡牌配置和扩展入口见 [局内对战 v0.3](NightTable/docs/局内对战v0.3.md)。
 
+当前版本0.5：地图为侧视随机3D城堡，支持左右移动、F交互、梯子换层、房间战斗与解锁。见 [城堡地图说明](NightTable/docs/城堡地图v0.5.md)。
+
 ## 运行
 
 使用 Godot 4.7 打开 `NightTable/project.godot`，按 F5。项目使用 GDScript，不需要 .NET SDK。

@@ -15,6 +15,10 @@ static func settlement(duel, owner: int) -> Dictionary:
 			"percent": percent += card.amount
 			"formation":
 				if duel.sides[owner].numbers.size()>=5: flat += card.amount
+	var relic := RelicCatalog.settlement(duel.sides[owner])
+	flat += relic.flat
+	percent += relic.percent
+	names.append_array(relic.names)
 	return {"base":base,"flat":flat,"percent":percent,"total":floori((base+flat)*(100+percent)/100.0),"names":names}
 
 static func dispatch(duel, event: String, actor: int, context: Dictionary = {}) -> void:
@@ -43,4 +47,5 @@ static func dispatch(duel, event: String, actor: int, context: Dictionary = {}) 
 			_: continue
 		duel.sides[owner].functions.erase(instance)
 		duel.sides[owner].discard.append(instance)
+		RelicCatalog.on_trap(duel.sides[owner])
 		duel.note("%s的陷阱「%s」触发 · %s；释放%d负荷。" % [duel.label_for(owner),card.title,detail,instance.load])

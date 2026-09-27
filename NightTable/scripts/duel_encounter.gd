@@ -31,7 +31,9 @@ func deal_hand() -> void:
 	phase = Phase.PLAYING
 	hand_result = ""
 	duel = LoadDuel.new()
-	duel.start(CombatCatalog.from_profile(run.profile),CombatCatalog.from_profile(MemoryProfile.new()),run.rng.randi())
+	if run.castle!=null:
+		duel.start(run.inventory.cards,RunInventory.starter(),run.rng.randi(),run.inventory.relics,true)
+	else: duel.start(CombatCatalog.from_profile(run.profile),CombatCatalog.from_profile(MemoryProfile.new()),run.rng.randi())
 	resolve_if_finished()
 
 func resolve_if_finished() -> void:
@@ -60,6 +62,9 @@ func resolve_if_finished() -> void:
 		outcome = "disaster" if pool == 0 or wins == 0 else ("success" if wins >= 2 else "failure")
 		run.hp = mini(100,reserve+stake+5) if outcome == "success" else (reserve+pool if outcome == "failure" else reserve)
 		phase = Phase.MATCH_OVER
+		if run.castle!=null and outcome=="success":
+			run.inventory.points += 10
+			hand_result += " · 遭遇获胜：质押点+10"
 
 func current_loss() -> int:
 	var count: int = duel.sides[0].numbers.size()+duel.sides[0].functions.size()

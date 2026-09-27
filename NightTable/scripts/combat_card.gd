@@ -17,4 +17,5 @@ func instance(serial: int) -> Dictionary:
 	return {"id":serial, "definition":self, "value":number, "load":load_cost}
 
 func type_label() -> String:
+	if kind=="number": return "数字牌"
 	return {"effect":"效果","bonus":"加成","trap":"陷阱"}.get(function_type,"")

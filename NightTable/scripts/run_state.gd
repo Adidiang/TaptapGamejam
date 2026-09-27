@@ -17,8 +17,41 @@ var pending := false
 var encounter_count := 0
 var legacy_text := ""
 var ending := ""
+var castle: CastleExploration
+var inventory := RunInventory.new()
 
-func begin(new_seed: int,memory: MemoryProfile = null) -> void:
+func can_manage_inventory() -> bool:
+	return active and castle!=null and not pending and not castle.in_battle and not castle.in_dialogue and not castle.locked()
+
+func room_offers() -> Array:
+	if castle==null: return []
+	var room := castle.room()
+	var offers: Array = room.get("offers",[])
+	if room.kind=="event" and not room.get("completed",false) and not room.has("title"):
+		var available := false
+		for offer in offers:
+			if offer.type!="relic" or offer.id not in inventory.relics: available = true
+		if not available:
+			room.offers = [{"type":"points","amount":20}]
+			offers = room.offers
+	return offers
+
+func claim_offer(index: int, replace: int = -1) -> bool:
+	if not can_manage_inventory(): return false
+	var room := castle.room()
+	if room.kind not in ["event","shop"] or (room.kind=="event" and room.get("completed",false)): return false
+	var offers := room_offers()
+	if index not in range(offers.size()) or not inventory.take(offers[index],replace): return false
+	if room.kind=="event": room.completed = true
+	return true
+
+func skip_event() -> void:
+	if can_manage_inventory() and castle.room().kind=="event": castle.room().completed = true
+
+func can_choose_name_ending() -> bool:
+	return ending=="dawn" and castle!=null and castle.layout.get("clock_started",false) and "R10" in inventory.relics
+
+func begin(new_seed: int,memory: MemoryProfile = null,use_castle: bool = false) -> void:
 	profile = memory if memory != null else MemoryProfile.new()
 	run_seed = new_seed
 	rng.seed = new_seed
@@ -30,7 +63,33 @@ func begin(new_seed: int,memory: MemoryProfile = null) -> void:
 	total_visited = 0
 	ending = ""
 	legacy_text = ""
+	castle = null
+	if use_castle:
+		inventory.reset()
+		items.clear()
+		castle = CastleExploration.new()
+		castle.start(new_seed,true)
+		castle.relics = inventory.relics
+		layers.clear()
+		visited.clear()
+		current_node = {}
+		pending = false
+		encounter_count = 0
+		deck = profile.make_deck(new_seed)
+		return
 	_new_act()
+
+func start_castle_encounter() -> bool:
+	if castle==null or not active or pending or not castle.in_battle: return false
+	var room := castle.room()
+	if room.kind not in ["encounter","boss"] or room.cleared or not room.triggered: return false
+	current_node = {"id":room.id,"kind":room.kind,"row":room.floor,"column":room.column}
+	act = 2 if room.kind=="boss" else maxi(0,room.floor-1)
+	pending = true
+	total_visited += 1
+	visited.append(room.id)
+	if room.kind=="encounter": encounter_count += 1
+	return true
 
 func _new_act() -> void:
 	layers = RouteGenerator.generate(run_seed+act*7919)
@@ -46,6 +105,7 @@ func _new_act() -> void:
 	deck = profile.make_deck(run_seed+act*997)
 
 func available_ids() -> Array:
+	if castle!=null: return []
 	if not active or pending: return []
 	if current_node.is_empty(): return [layers[0][0].id]
 	return current_node.next
@@ -75,6 +135,12 @@ func heal(amount: int) -> void:
 func finish_node() -> void:
 	if not active or not pending: return
 	pending = false
+	if castle!=null:
+		if hp<=0: finish_run(false)
+		else:
+			castle.complete_room()
+			if current_node.kind=="boss": finish_run(hp>1)
+		return
 	if hp <= 0: finish_run(false)
 	elif current_node.kind == "boss":
 		if act == 2: finish_run(hp > 1)
@@ -86,6 +152,10 @@ func finish_run(victory: bool) -> void:
 	if not active: return
 	active = false
 	pending = false
+	if castle!=null:
+		ending = "dawn" if victory else "again"
+		legacy_text = "本轮结束。下一轮将重新配置起始牌组与遗物。"
+		return
 	ending = "release" if victory and profile.removed_old >= 8 else ("dawn" if victory else "again")
 	profile.loops += 1
 	var options := profile.upgrade_choices(rng,1)

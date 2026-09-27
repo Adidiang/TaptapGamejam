@@ -48,18 +48,21 @@ func _style(fill: Color, border: Color, radius: int = 12) -> StyleBoxFlat:
 	style.content_margin_bottom = 12
 	return style
 
-func _new_page(name_of_screen: String, heading: String, subtitle: String) -> void:
+func _new_page(name_of_screen: String, heading: String, subtitle: String, full_bleed: bool = false) -> void:
 	screen = name_of_screen
+	for side in ["left","right"]: ui_root.add_theme_constant_override("margin_"+side,0 if full_bleed else 64)
+	for side in ["top","bottom"]: ui_root.add_theme_constant_override("margin_"+side,0 if full_bleed else 32)
 	if is_instance_valid(page):
 		ui_root.remove_child(page)
 		page.queue_free()
 	page = VBoxContainer.new()
 	page.add_theme_constant_override("separation", 18)
 	ui_root.add_child(page)
+	if full_bleed: return
 	var top := HBoxContainer.new()
 	page.add_child(top)
 	_label(top, "N / T     余夜", 20, GOLD).size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_label(top, "可玩原型   /   0.4", 15, MUTED)
+	_label(top, "可玩原型   /   0.6", 15, MUTED)
 	var line := HSeparator.new()
 	page.add_child(line)
 	_label(page, heading, 36)

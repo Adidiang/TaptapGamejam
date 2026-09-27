@@ -67,6 +67,8 @@ func _run() -> void:
 	_simulate_runs()
 	load("res://tests/load_duel_test.gd").new().test(check)
 	load("res://tests/passive_test.gd").new().test(check)
+	load("res://tests/castle_test.gd").new().test(check)
+	load("res://tests/progression_test.gd").new().test(check)
 	await _test_ui()
 	print("PASS: %d checks; new load duels, legacy regression, economy, persistence and UI flow" % checks)
 	quit(0)
@@ -274,14 +276,91 @@ func _test_ui() -> void:
 	root.add_child(app)
 	await process_frame
 	check(not app.profile.persistence,"UI tests never modify real profile")
-	app.start_run(217)
-	check(app.screen == "reward","opening upgrade choice")
-	app.choose_reward(0)
-	check(app.screen == "map","opening choice goes to map")
-	app.enter_node(app.run.available_ids()[0])
-	check(app.screen == "stake","stake disclosure")
-	app.begin_battle()
+	app.curtain.duration = 0.025
+	var swaps := [0]
+	app._transition_to(func():
+		check(is_equal_approx(app.curtain.progress,1.0),"scene swaps only behind fully closed curtain")
+		check(app.ui_root.process_mode==Node.PROCESS_MODE_DISABLED,"UI frozen during transition")
+		swaps[0] += 1
+	)
+	await app._transition_to(func(): swaps[0] += 100)
+	while app.curtain.busy: await process_frame
+	check(swaps[0]==1,"duplicate transitions ignored")
+	await app.start_run(217)
+	check(app.screen == "map","start enters map directly after curtain")
+	await process_frame
+	check(app.page.get_child_count()==1 and app.ui_root.get_theme_constant("margin_left")==0,"map has only full-screen scene")
+	check(app.page.size.is_equal_approx(app.get_viewport_rect().size),"map fills viewport")
+	check(not app.curtain.busy and not app.curtain.cover.visible,"curtain clears and releases input")
+	check(app.run.castle!=null and app.page.get_node("CastleView")!=null,"3D castle screen active")
+	var map_view = app.page.get_node("CastleView")
+	for entry in app.run.castle.layout.rooms:
+		var art = map_view.room_visuals[entry.id].art
+		var expected_scene = map_view.ROOM_ART.scene_for(entry.kind)
+		check(art.scene_file_path==expected_scene.resource_path,"room kind selects editable art scene")
+		check(art.find_children("*","Camera3D",true,false).is_empty() and art.find_children("*","WorldEnvironment",true,false).is_empty(),"preview camera and environment do not override gameplay")
+		check(art.has_node("Furniture") and art.has_node("SetDressing/CeilingFill"),"editable furniture and local lights preserved")
+		check(map_view.minimap.room_visuals[entry.id].art==null,"minimap does not duplicate detailed art")
+		for direction in [-1,1]:
+			var door = art.get_node("LeftDoor" if direction<0 else "RightDoor")
+			check(is_equal_approx(door.global_position.z,2.3),"art doors align with player lane")
+			var linked = false
+			for id in entry.neighbors:
+				if app.run.castle.layout.rooms[id].column==entry.column+direction: linked = true
+			check(door.get_node("Opening").visible==linked and door.get_node("SealedWall").visible!=linked,"unconnected room boundaries are sealed")
+	check(map_view.camera.rotation_degrees.x<0 and map_view.camera.projection==Camera3D.PROJECTION_PERSPECTIVE,"main camera tilted with room depth")
+	check(map_view.minimap!=null and map_view.minimap.camera.projection==Camera3D.PROJECTION_ORTHOGONAL and is_zero_approx(map_view.minimap.camera.rotation_degrees.x),"minimap retains flat orthographic view")
+	for door in map_view.door_leaves:
+		if door.room==app.run.castle.current: check(not door.closed,"safe spawn passage doors open")
+	var tab := InputEventKey.new()
+	tab.physical_keycode = KEY_TAB
+	tab.pressed = true
+	map_view.minimap._input(tab)
+	check(not app.run.castle.overview,"minimap never duplicates player input")
+	var main_camera_rotation: Vector3 = map_view.camera.rotation
+	map_view._input(tab)
+	check(app.run.castle.overview,"Tab switches overview")
+	check(map_view.camera.rotation==main_camera_rotation,"overview affects only minimap")
+	map_view._input(tab)
+	check(not app.run.castle.overview,"Tab restores follow view")
+	app.run.castle.move(10)
+	var castle_room: int = app.run.castle.current
+	var interact_key := InputEventKey.new()
+	interact_key.physical_keycode = KEY_F
+	interact_key.pressed = true
+	map_view._input(interact_key)
+	for door in map_view.door_leaves:
+		if door.room==castle_room: check(door.closed,"encounter locks visible door leaves")
+	check(app.screen=="dialogue" and app.dialogue.active and not app.curtain.busy,"room interaction opens dialogue before curtain")
+	check(app.battle==null and app.ui_root.process_mode==Node.PROCESS_MODE_DISABLED,"battle not dealt and map frozen during dialogue")
+	var position_before: float = app.run.castle.player_x
+	app.run.castle.move(20)
+	check(app.run.castle.player_x==position_before,"dialogue also blocks model movement")
+	app._start_castle_battle()
+	check(app.run.total_visited==1 and app.dialogue.index==0,"duplicate interaction does not restart dialogue")
+	app.dialogue._input(interact_key)
+	check(app.dialogue.index==0,"opening F does not skip first line")
+	await process_frame
+	interact_key.echo = true
+	app.dialogue._input(interact_key)
+	check(app.dialogue.index==0,"held F does not skip lines")
+	interact_key.echo = false
+	app.dialogue._input(interact_key)
+	check(app.dialogue.index==1 and app.battle==null,"F advances one line without starting combat")
+	var space := InputEventKey.new()
+	space.physical_keycode = KEY_SPACE
+	space.pressed = true
+	app.dialogue._input(space)
+	check(app.dialogue.index==2 and app.dialogue.active,"space reaches final dialogue line")
+	var click := InputEventMouseButton.new()
+	click.button_index = MOUSE_BUTTON_LEFT
+	click.pressed = true
+	app.dialogue._input(click)
+	check(not app.dialogue.active and app.curtain.busy,"last click closes dialogue and starts curtain")
+	app.dialogue.advance()
+	while app.curtain.busy: await process_frame
 	check(app.screen == "encounter","actual battle screen")
+	check(app.ui_root.get_theme_constant("margin_left")==0 and app.page.has_node("DuelTableUI"),"battle uses full-screen editable table presentation")
 	var secret := CombatCatalog.function_card(0)
 	secret.title = "PRIVATE_SENTINEL"
 	secret.description = "PRIVATE_SENTINEL"
@@ -317,22 +396,43 @@ func _test_ui() -> void:
 	check(iterations < 2000,"new UI encounter terminates")
 	app.show_encounter()
 	app.settle_battle()
-	check(app.screen == "reward","battle offers reward")
-	app._finish_reward()
-	check(app.screen == "map","reward advances route")
-	app._make_goods()
-	app.show_shop()
-	var before: int = app.run.hp
-	app.buy_good(0)
-	check(app.run.hp == before-6,"shop payment")
-	app.buy_good(0)
-	check(app.run.hp == before-6,"shop purchase idempotent")
-	app._open_reward("disaster",2)
-	app.choose_reward(0)
-	check(app.screen == "deck","delete selector opens")
-	var size_before: int = app.profile.cards.size()
-	app.delete_card(app.profile.cards[0].id)
-	check(app.profile.cards.size() == size_before-1 and app.reward_left == 1,"first of two removals")
+	while app.curtain.busy: await process_frame
+	check(app.screen == "map","pure battle returns directly to castle")
+	check(app.run.castle.current==castle_room and app.run.castle.room().cleared and not app.run.castle.in_battle,"same room unlocked after battle and reward")
+	var returned_view = app.page.get_node("CastleView")
+	returned_view._snap_camera()
+	returned_view._sync()
+	check(returned_view.room_visuals[app.run.castle.layout.spawn].node.visible,"visited adjacent room remains visible after camera settles")
+	for door in returned_view.door_leaves:
+		if door.room==castle_room: check(not door.closed,"cleared room door leaves reopen")
+	app.run.castle.move(10)
+	var points_before: int = app.run.inventory.points
+	app.page.get_node("CastleView").perform_interaction()
+	check(app.screen=="content_dialogue" and app.dialogue.active and app.dialogue.finish_label=="查看赠礼","event interaction opens portrait dialogue first")
+	var event_position: float = app.run.castle.player_x
+	app.run.castle.move(10)
+	check(app.run.castle.player_x==event_position and app.run.castle.interact()=="" and not app.run.claim_offer(0),"event dialogue blocks movement retrigger and early reward")
+	app._start_content_dialogue()
+	check(app.dialogue.index==0 and app.run.inventory.points==points_before,"repeated interaction neither restarts nor awards event")
+	while app.dialogue.active: app.dialogue.advance()
+	check(app.screen=="room_content","event UI opens")
+	check(not app.run.castle.in_dialogue and app.ui_root.process_mode==Node.PROCESS_MODE_INHERIT,"event dialogue releases controls")
+	app.run_screens.commit(0)
+	check(app.run.inventory.points==points_before+20 and app.screen=="map","event grants points then returns to map")
+	app.run.castle.move(10)
+	app.page.get_node("CastleView").perform_interaction()
+	check(app.screen=="content_dialogue" and app.dialogue.finish_label=="进入商店","shop interaction opens merchant dialogue first")
+	while app.dialogue.active: app.dialogue.advance()
+	check(app.screen=="room_content","shop opens only after final line")
+	app.run_screens.select_offer(0)
+	check(app.screen=="card_offer","shop opens card choice before charging")
+	var size_before: int = app.run.inventory.cards.size()
+	app.run_screens.commit(0)
+	check(app.run.inventory.points==points_before+5 and app.run.inventory.cards.size()==size_before+1,"shop payment uses points and adds run card")
+	app.run_screens.commit(0)
+	check(app.run.inventory.points==points_before+5,"shop duplicate purchase rejected")
+	app.run_screens.inventory(app.show_map)
+	check(app.screen=="inventory","run inventory accessible")
 	app.run.finish_run(false)
 	var loops: int = app.profile.loops
 	app.run.finish_run(false)
@@ -346,6 +446,7 @@ func _test_ui() -> void:
 
 func _ui_contains(node: Node, value: String) -> bool:
 	if (node is Label or node is Button) and value in node.text: return true
+	if node.get_script()==load("res://scripts/duel_card_art.gd") and value in node.title: return true
 	if node is Control and value in node.tooltip_text: return true
 	for child in node.get_children():
 		if _ui_contains(child,value): return true
