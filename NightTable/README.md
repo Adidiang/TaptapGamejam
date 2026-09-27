@@ -30,6 +30,8 @@ Godot 4.7 的 21 点肉鸽可玩原型。所有画面为程序占位美术。
 - 奖励选择、生命购买、永久加牌/删牌、轮回成长与三个结局分支。
 - 永久牌库存档。当前路线、生命、遗物与道具不跨程序退出保存。
 - 3D 占位牌桌叠加 2D 界面；最终三渲二材质、正式美术、声音和完整叙事待制作。
+- `scenes/level1_whitebox.tscn`：Level 1「卡牌王国」关卡白盒，独立场景，F6 单独运行即可；规格与尺寸假设见 `docs/关卡白盒-Level1卡牌王国.md`，正视图见 `docs/level1-白盒平面图.svg`
+（**横板正视图**：房间沿 X 一字排开，不是走廊加两侧房间）。
 
 第一次游玩：开始轮回 → 选择升级 → 点击亮起的地图节点 → 质押发牌 → 要牌/停牌 → 领取奖励继续。卡牌和道具可悬停查看说明，牌桌提供规则入口。
 
@@ -47,7 +49,9 @@ Godot 4.7 的 21 点肉鸽可玩原型。所有画面为程序占位美术。
 | scripts/map_generator.gd、scripts/route_view.gd | 地图生成与展示 |
 | scripts/main.gd、scripts/ui_base.gd | 界面与流程连接 |
 | scripts/table_stage.gd | 占位三维环境 |
+| scripts/level1_whitebox.gd | Level 1「卡牌王国」关卡白盒（程序化占位几何，独立场景，不影响主游戏） |
 | tests/smoke.gd | 规则边界、流程、存档及模拟检查 |
+| tests/whitebox.gd | 白盒房间数量与设计图配比的检查 |
 
 存档为 `user://memory_profile_v1.json`，编辑器“项目 → 打开用户数据文件夹”可定位。异常存档会提示并停止覆盖原文件。
 
@@ -61,3 +65,11 @@ Godot 4.7 的 21 点肉鸽可玩原型。所有画面为程序占位美术。
 ```
 
 检查包括 100 个地图种子、120 次自动轮回、规则边界和界面流程。自动策略用于验证状态约束和终止性，不代表正式平衡评估。截图输出在 captures，包含人为设置的压力场景。两种模式不改玩家存档；存档往返测试使用独立临时文件。
+
+关卡白盒的配比检查单独跑：
+
+```powershell
+& '.\Godot_v4.7.2-stable_mono_win64\Godot_v4.7.2-stable_mono_win64_console.exe' --headless --path '.\NightTable' --script res://tests/whitebox.gd
+```
+
+改了白盒的房间数量或类型后跑一次；与 `docs/关卡白盒-Level1卡牌王国.md` 的配比不一致时会直接失败。

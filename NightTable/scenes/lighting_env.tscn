@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://blightenv1n1ght"]
+
+[ext_resource type="Shader" path="res://art/shaders/vignette.gdshader" id="1_vigshader"]
+
+[sub_resource type="Environment" id="Env_1"]
+background_mode = 1
+background_color = Color(0.078, 0.102, 0.125, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.725, 0.776, 0.8, 1)
+ambient_light_energy = 0.35
+tonemap_mode = 2
+tonemap_white = 1.0
+ssao_enabled = true
+ssao_radius = 1.0
+ssao_intensity = 2.5
+exposure_enabled = true
+exposure_min_sensitivity = 60.0
+exposure_max_sensitivity = 300.0
+exposure_sensitivity = 100.0
+exposure_scale = 1.0
+adjustment_enabled = true
+adjustment_brightness = 1.0
+adjustment_contrast = 1.0
+adjustment_saturation = 1.0
+glow_enabled = false
+
+[sub_resource type="ShaderMaterial" id="VigMat"]
+shader = ExtResource("1_vigshader")
+shader_parameter/intensity = 0.4
+shader_parameter/radius = 0.4
+shader_parameter/softness = 0.5
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+
+[node name="LightingEnv" type="Node3D"]
+
+[node name="Env" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_1")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-68, -38, 0)
+light_color = Color(0.941, 0.902, 0.824, 1)
+light_energy = 0.18
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 60.0
+
+[node name="Fill" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-40, 145, 0)
+light_color = Color(0.624, 0.714, 0.769, 1)
+light_energy = 0.3
+
+[node name="VignetteLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="Vignette" type="ColorRect" parent="VignetteLayer"]
+anchors_preset = 15
+anchors_right = 1.0
+anchors_bottom = 1.0
+mouse_filter = 2
+material = SubResource("VigMat")
+color = Color(1, 1, 1, 1)
