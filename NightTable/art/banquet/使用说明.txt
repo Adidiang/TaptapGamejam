@@ -1,0 +1,21 @@
+宴会厅素材填充（2026-10-04）
+
+编辑场景：res://art/banquet/banquet.tscn
+新增内容位于 DiningDecor，每件物体可直接选中、移动、缩放、隐藏。
+原策划模型与相机在 Layout 下；两台相机代表左右观察边界。capture.gd 从二者的实时中点渲染，不保存相机位置更改。
+
+素材来源：D:/edge下载/576m1/Re4R_DiningHall_1.0.blend
+只提取餐边柜、高柜、立式烛台、壁灯、装饰柱、雕花饰牌、吊灯、局部帷幔与墙裙；具体对象映射见 dining_assets/selection.json。
+材质提取基础色，贴图最长边限制为 1024，使用哑光材质；原 Blender 文件不修改。
+新增灯光仅为四盏壁灯的局部暖色补光。原桌子、后景主体与相机保持原变换，未接入运行中的房间路线。
+
+首版备份：F:/gamejam/outputs/dining_import/banquet_before.tscn
+最新中点预览：F:/gamejam/outputs/banquet/decorated_midpoint.png
+build_preview.gd、dress_dining.gd、refine_dining.gd 是一次性制作辅助脚本；后续请直接编辑场景，勿重新运行以覆盖手调结果。
+
+2026-10-04 游戏接入：宴会厅作为卧室右侧第二间战斗房。
+- 美术编辑仍在 art/banquet/banquet.tscn，游戏通过 art/exploration/banquet_room.tscn 引用。
+- 接入层整体旋转并平移，将两侧门深度与卧室、后续房间对齐；保留美术场景内部摆放。
+- 门洞与开关门在运行时适配。碰撞、交互位置及相机端点在 banquet_definition.tres。
+- 使用现有纸面滤镜与卧室环境效果；独立预览一层滤镜，游戏内由主视口统一应用一次。
+- 已验证卧室 → 宴会厅 → 后续房间，以及清除战斗锁定后的反向通行。

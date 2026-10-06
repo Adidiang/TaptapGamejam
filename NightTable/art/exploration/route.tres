@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ExplorationRoute" format=3 uid="uid://d3v3sdxt7md35"]
+
+[ext_resource type="Script" uid="uid://bfram8wn26o4m" path="res://scripts/exploration_route.gd" id="1"]
+[ext_resource type="Resource" uid="uid://cydxiugvtdisg" path="res://art/exploration/bedroom_definition.tres" id="2"]
+[ext_resource type="Resource" path="res://art/exploration/whitebox_definition.tres" id="3"]
+[ext_resource type="Resource" path="res://art/exploration/banquet_definition.tres" id="4"]
+[ext_resource type="Resource" path="res://art/exploration/armory_definition.tres" id="5"]
+[ext_resource type="Resource" path="res://art/exploration/cellar_definition.tres" id="6"]
+[ext_resource type="Resource" path="res://art/exploration/auditorium_definition.tres" id="7"]
+[ext_resource type="Resource" path="res://art/exploration/palace_definition.tres" id="8"]
+[ext_resource type="Resource" path="res://art/exploration/music_hall_definition.tres" id="9"]
+
+[ext_resource type="Resource" path="res://art/exploration/stairwell_definition.tres" id="stairs"]
+[ext_resource type="Resource" path="res://art/exploration/queen_definition.tres" id="queen"]
+
+[resource]
+script = ExtResource("1")
+bedroom = ExtResource("2")
+whitebox = ExtResource("3")
+banquet = ExtResource("4")
+battle = ExtResource("5")
+battle_weight = 25
+shop_weight = 10
+event_weight = 65
+events = [ExtResource("4"),ExtResource("6"),ExtResource("7"),ExtResource("8"),ExtResource("9")]
+
+stairwell = ExtResource("stairs")
+queen = ExtResource("queen")
+debug_unlock_combat_doors = true

@@ -15,6 +15,7 @@ var remove_cost := 0
 var curtain: CurtainTransition
 var dialogue: DialogueOverlay
 var run_screens: RunScreens
+var cached_castle_view: CastleView
 
 func _ready() -> void:
 	profile.persistence = not ("--capture" in OS.get_cmdline_user_args() or "--smoke" in OS.get_cmdline_user_args())
@@ -75,7 +76,7 @@ func show_menu() -> void:
 	var stage := TableStage.new()
 	stage.custom_minimum_size = Vector2(400,300)
 	right.add_child(stage)
-	_label(right,"牌组构筑 · 城堡探索 · 遗物",18,GOLD)
+	_label(right,"牌组构筑 · 房间探索 · 遗物",18,GOLD)
 	_text(right,"本轮牌组最多20张。自有牌耗尽后可冒险摸公共牌。探索进度暂不跨退出保存。",16)
 	_spacer(right)
 	_text(page,"题材提示：创伤记忆、入室犯罪与死亡。当前使用静态占位表现，无闪烁与血腥。",15)
@@ -110,15 +111,43 @@ func show_map() -> void:
 		show_ending()
 		return
 	_new_page("map","","",true)
-	var castle_view := CastleView.new()
-	castle_view.name = "CastleView"
-	castle_view.configure(run.castle)
-	page.add_child(castle_view)
-	castle_view.battle_requested.connect(_start_castle_battle)
-	castle_view.content_requested.connect(_start_content_dialogue)
-	var inventory_button := _button(castle_view,"行囊 [I]",func(): run_screens.inventory(show_map),130)
-	inventory_button.position = Vector2(18,18)
-	inventory_button.tooltip_text = "查看本轮牌组、遗物和质押点；安全房间可调整牌组。"
+	attach_castle_view(page,true)
+
+func _new_page(name_of_screen: String, heading: String, subtitle: String, full_bleed: bool = false) -> void:
+	# Keep the live 3D world when menus, dialogue rewards or combat replace the UI.
+	if is_instance_valid(cached_castle_view):
+		cached_castle_view.hide()
+		cached_castle_view.process_mode=Node.PROCESS_MODE_DISABLED
+		for viewport in cached_castle_view.find_children("*","SubViewport",true,false):
+			viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED
+		if cached_castle_view.get_parent()!=self:cached_castle_view.reparent(self)
+		if cached_castle_view.state!=run.castle:
+			cached_castle_view.queue_free()
+			cached_castle_view=null
+	super._new_page(name_of_screen,heading,subtitle,full_bleed)
+
+func attach_castle_view(parent: Control, interactive: bool) -> CastleView:
+	if not is_instance_valid(cached_castle_view):
+		cached_castle_view=CastleView.new()
+		cached_castle_view.name="CastleView"
+		cached_castle_view.configure(run.castle)
+		parent.add_child(cached_castle_view)
+		cached_castle_view.battle_requested.connect(_start_castle_battle)
+		cached_castle_view.content_requested.connect(_start_content_dialogue)
+		var button := _button(cached_castle_view,"行囊 [I]",func(): run_screens.inventory(show_map),130)
+		button.name="InventoryButton"
+		button.position=Vector2(18,18)
+	else:
+		cached_castle_view.reparent(parent)
+	cached_castle_view.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	cached_castle_view.show()
+	cached_castle_view.focused=interactive
+	cached_castle_view.process_mode=Node.PROCESS_MODE_INHERIT if interactive else Node.PROCESS_MODE_DISABLED
+	cached_castle_view.get_node("InventoryButton").visible=interactive
+	for viewport in cached_castle_view.find_children("*","SubViewport",true,false):
+		viewport.render_target_update_mode=SubViewport.UPDATE_WHEN_VISIBLE
+	cached_castle_view._sync()
+	return cached_castle_view
 
 func _start_castle_battle() -> void:
 	if curtain.busy or screen!="map" or not run.start_castle_encounter(): return
@@ -453,7 +482,7 @@ func show_rules(back_action: Callable) -> void:
 	_button(page,"返回",back_action,220)
 
 func _capture_screens() -> void:
-	for target in ["menu","map","castle_overview","curtain_half","curtain_closed","castle_locked","dialogue","encounter","encounter_full","encounter_settlement","event","shop","inventory","relics","key_branch","public_draw","ending"]:
+	for target in ["menu","map","castle_overview","curtain_half","curtain_closed","castle_locked","dialogue","encounter","encounter_full","encounter_settlement","event","shop","inventory","relics","public_draw","ending"]:
 		match target:
 			"menu": show_menu()
 			"map":
@@ -472,7 +501,7 @@ func _capture_screens() -> void:
 				curtain.set_progress(0.0)
 				curtain.cover.hide()
 				run.castle.overview = false
-				run.castle.move(10.0)
+				_capture_next_room()
 				show_map()
 			"dialogue":
 				run.castle.interact()
@@ -496,19 +525,15 @@ func _capture_screens() -> void:
 			"event":
 				run.pending = false
 				run.castle.complete_room()
-				run.castle.move(10)
+				_capture_next_room()
 				run_screens.room()
 			"shop":
 				run.claim_offer(0)
-				run.castle.move(10)
+				_capture_next_room()
 				run_screens.room()
 			"inventory":
 				run.inventory.relics.assign(["R01","R03","R05"])
 				run_screens.inventory(show_map)
-			"key_branch":
-				run.castle._enter(run.castle.layout.copper.a)
-				run.castle.player_x = -14
-				show_map()
 			"relics": run_screens.inventory(show_map,-1,true)
 			"public_draw":
 				battle.duel = LoadDuel.new()
@@ -524,3 +549,9 @@ func _capture_screens() -> void:
 		await RenderingServer.frame_post_draw
 		get_viewport().get_texture().get_image().save_png("res://captures/"+target+".png")
 	get_tree().quit()
+
+func _capture_next_room() -> void:
+	run.castle.move(0,run.castle.definition().right_door.y-run.castle.player_z)
+	run.castle.move(10)
+	run.castle.move(-run.castle.local_position().x)
+	run.castle.move(0,run.castle.definition().interaction.y-run.castle.player_z)

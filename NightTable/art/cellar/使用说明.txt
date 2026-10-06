@@ -1,0 +1,18 @@
+酒窖第一版：res://art/cellar/cellar.tscn
+在 Godot 文件系统中双击 cellar.tscn，按 F6 运行当前场景。
+当前为独立美术样板，尚未替换游戏路线中的房间。
+
+Architecture：石墙、门、梁柱、地板和顶面。
+RearStorage / SideStorage：后墙与两侧储物区。
+BarrelStacks：桶架及酒桶。
+BottlesAndVessels / SmallProps：酒瓶、陶罐、杂物，均可单独调整。
+Lighting：暖色局部光、后墙冷光、通道及前景补光。
+PreviewEnvironment：酒窖自己的雾气、环境光和辉光。
+DreamGrade：沿用绘本滤镜；如需单独调整，先使其材质唯一，避免修改共用资源。
+Cameras：左右范围相机和中点预览相机。
+
+使用酒馆素材库 38 种现有部件。原素材、卧室及宴会厅均未修改。
+build.gd 是本次一次性搭建工具，手动编辑后不要重新运行，会覆盖场景。
+capture.gd 从两个端点相机的中点渲染到 F:/gamejam/outputs/cellar/preview.png。
+
+第二轮：后墙与储物区前移约1.05米，新增柜子、地毯及前景道具。textures目录是酒窖专用图集副本，导入上限512，原始酒馆纹理未改。densify.gd和finish_dense.gd均为一次性工具，不要重新运行。

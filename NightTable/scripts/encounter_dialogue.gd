@@ -4,7 +4,7 @@ extends RefCounted
 static func for_room(room: Dictionary) -> Array:
 	if room.kind=="shop":
 		return [
-			{"speaker":"行商","text":"进来看看吧。城堡里的路不好走，总得带些用得上的东西。"},
+			{"speaker":"行商","text":"进来看看吧。前面的路不好走，总得带些用得上的东西。"},
 			{"speaker":"行商","text":"卡牌和遗物都在这里，价格用质押点结算。挑好再决定，不必着急。"},
 			{"speaker":"行商","text":"那么，看看今天有什么适合你。"},
 		]
@@ -23,9 +23,9 @@ static func for_room(room: Dictionary) -> Array:
 		]
 	if room.kind=="boss":
 		return [
-			{"speaker":"王座上的影子","text":"你终于走到了这里。那些关上的门，还在你身后。"},
-			{"speaker":"王座上的影子","text":"这次没有下一层了。你带来的每一张牌，都会留下答案。"},
-			{"speaker":"王座上的影子","text":"坐下吧。让我们打完最后一局。"},
+			{"speaker":"女皇","text":"你终于走到了这里。那些关上的门，还在你身后。"},
+			{"speaker":"女皇","text":"这次没有下一间了。你带来的每一张牌，都会留下答案。"},
+			{"speaker":"女皇","text":"坐下吧。让我们打完最后一局。"},
 		]
 	return [
 		{"speaker":"守夜人","text":"门已经关上了。别急，这间屋子只留你片刻。"},

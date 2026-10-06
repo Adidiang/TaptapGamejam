@@ -1,0 +1,31 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/authored_room.gd" id="1_kocwx"]
+[ext_resource type="Script" path="res://scripts/exploration_room_definition.gd" id="2_ixh5e"]
+[ext_resource type="PackedScene" path="res://art/auditorium/auditorium.tscn" id="3_kw7sj"]
+
+[sub_resource type="Resource" id="Resource_c8b2g"]
+script = ExtResource("2_ixh5e")
+scene_path = "res://art/exploration/auditorium_room.tscn"
+display_name = "礼堂"
+floor_bounds = Rect2(-4.5, -8.641913, 9, 9)
+floor_y = 0.06
+spawn = Vector2(0, -1.346)
+interaction = Vector2(0, -1.346)
+door_width = 0.7362000000000001
+obstacles = Array[Rect2]([Rect2(3.0626004, -0.8320344, 0.4441297, 1.1901209), Rect2(3.3994675, -0.8320344, 0.4441297, 1.1901209), Rect2(-4.368, -8.446914, 0.13199997, 2.6100006), Rect2(-4.368, -5.746913, 0.13199997, 2.61), Rect2(-4.2900004, -8.611913, 0.3000002, 0.29999924), Rect2(-4.3950005, -8.641913, 0.5100002, 0.43500042), Rect2(-4.2900004, -5.9719133, 0.3000002, 0.3000002), Rect2(-4.3950005, -6.0769134, 0.5100002, 0.5100002), Rect2(-4.2900004, -3.271913, 0.3000002, 0.3000002), Rect2(-4.3950005, -3.376913, 0.5100002, 0.5100002), Rect2(-4.2900004, -0.51191294, 0.3000002, 0.29999998), Rect2(-4.3950005, -0.61691296, 0.5100002, 0.51), Rect2(-3.735, -5.986913, 0.4499998, 0.4499998), Rect2(-3.9450002, -5.611913, 0.38999987, 0.35999966), Rect2(-3.9900002, -5.671913, 0.48000002, 0.47999954), Rect2(-3.735, -3.3469129, 0.4499998, 0.4499998), Rect2(-3.9450002, -2.971913, 0.38999987, 0.36000013), Rect2(-3.9900002, -3.031913, 0.48000002, 0.48000002), Rect2(4.236, -8.446914, 0.13199997, 2.6100006), Rect2(4.236, -5.746913, 0.13199997, 2.61), Rect2(3.9900002, -8.611913, 0.3000002, 0.29999924), Rect2(3.8850002, -8.641913, 0.5100002, 0.43500042), Rect2(3.9900002, -5.9719133, 0.3000002, 0.3000002), Rect2(3.8850002, -6.0769134, 0.5100002, 0.5100002), Rect2(3.9900002, -3.271913, 0.3000002, 0.3000002), Rect2(3.8850002, -3.376913, 0.5100002, 0.5100002), Rect2(3.9900002, -0.51191294, 0.3000002, 0.29999998), Rect2(3.8850002, -0.61691296, 0.5100002, 0.51), Rect2(3.285, -5.986913, 0.4499998, 0.4499998), Rect2(3.5550003, -5.611913, 0.38999987, 0.35999966), Rect2(3.5100002, -5.671913, 0.48000002, 0.47999954), Rect2(3.285, -3.3469129, 0.4499998, 0.4499998), Rect2(3.5550003, -2.971913, 0.38999987, 0.36000013), Rect2(3.5100002, -3.031913, 0.48000002, 0.48000002)])
+camera_position = Vector3(-1.1920929e-07, 1.1021072, 2.3571625)
+camera_pitch = 5.0000033
+camera_fov = 53.701622
+camera_left_anchor = NodePath("Art/Layout/摄像机")
+camera_right_anchor = NodePath("Art/Layout/摄像机_001")
+
+[node name="AuditoriumRoom" type="Node3D" unique_id=1901818843]
+script = ExtResource("1_kocwx")
+left_leaf = NodePath("Layout/Obj3d66-18249362-93-883_001")
+right_leaf = NodePath("Layout/Obj3d66-18249362-93-883_002")
+unit_scale = 0.6
+definition = SubResource("Resource_c8b2g")
+
+[node name="Art" type="Node3D" parent="." unique_id=643378800 instance=ExtResource("3_kw7sj")]
+transform = Transform3D(-2.6226834e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.6226834e-08, 0, 0, -1.441913)

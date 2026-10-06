@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ExplorationRoomDefinition" format=3]
+[ext_resource type="Script" path="res://scripts/exploration_room_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+scene_path = "res://art/exploration/stairwell_room.tscn"
+display_name = "回折楼梯厅"
+camera_position = Vector3(0, 4.7, 13.8)
+camera_pitch = -6.0
+camera_fov = 49.0
+spawn = Vector2(-3.85, -1.346)

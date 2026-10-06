@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://art/rooms_oct06/study/study.glb" id="1_kfsja"]
+
+[sub_resource type="Environment" id="Environment_4uw4v"]
+background_mode = 1
+background_color = Color(0.12, 0.13, 0.15, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.85, 0.87, 0.92, 1)
+ambient_light_energy = 0.5
+tonemap_mode = 2
+ssao_enabled = true
+
+[node name="Study" type="Node3D" unique_id=39554554]
+metadata/source_blend = "C:\\Users\\lenovo\\Documents\\xwechat_files\\wxid_bbqaby8mv0xr12_8aad\\msg\\file\\2026-10\\书房.blend"
+
+[node name="Layout" type="Node3D" parent="." unique_id=1620971132 instance=ExtResource("1_kfsja")]
+
+[node name="PreviewCamera" type="Camera3D" parent="." unique_id=1849019790]
+transform = Transform3D(-1.6292068e-07, -0.017452383, 0.9998477, -6.1475305e-08, 0.9998477, 0.017452383, -1, -5.862259e-08, -1.6396875e-07, 5.815829, 1.7220267, 1.9477879)
+current = true
+fov = 45.74733
+near = 0.1
+far = 1000.0
+
+[node name="AreaLightPreview" type="Node3D" parent="." unique_id=1944023097]
+
+[node name="面光" type="SpotLight3D" parent="AreaLightPreview" unique_id=2136671728]
+transform = Transform3D(0.5387883, 0, 0.84244114, -0.84244114, 0, 0.5387883, 0, -1, 0, 2.555577, 4.087695, 0)
+light_energy = 1.4009999
+light_size = 0.5
+shadow_enabled = true
+spot_range = 30.0
+spot_attenuation = 0.5
+spot_angle = 80.0
+
+[node name="PreviewEnvironment" type="WorldEnvironment" parent="." unique_id=1233869609]
+environment = SubResource("Environment_4uw4v")

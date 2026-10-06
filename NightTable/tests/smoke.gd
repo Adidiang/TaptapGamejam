@@ -286,7 +286,7 @@ func _test_ui() -> void:
 	await app._transition_to(func(): swaps[0] += 100)
 	while app.curtain.busy: await process_frame
 	check(swaps[0]==1,"duplicate transitions ignored")
-	await app.start_run(217)
+	await app.start_run(load("res://tests/castle_test.gd").test_seed())
 	check(app.screen == "map","start enters map directly after curtain")
 	await process_frame
 	check(app.page.get_child_count()==1 and app.ui_root.get_theme_constant("margin_left")==0,"map has only full-screen scene")
@@ -296,18 +296,18 @@ func _test_ui() -> void:
 	var map_view = app.page.get_node("CastleView")
 	for entry in app.run.castle.layout.rooms:
 		var art = map_view.room_visuals[entry.id].art
-		var expected_scene = map_view.ROOM_ART.scene_for(entry.kind)
-		check(art.scene_file_path==expected_scene.resource_path,"room kind selects editable art scene")
-		check(art.find_children("*","Camera3D",true,false).is_empty() and art.find_children("*","WorldEnvironment",true,false).is_empty(),"preview camera and environment do not override gameplay")
-		check(art.has_node("Furniture") and art.has_node("SetDressing/CeilingFill"),"editable furniture and local lights preserved")
-		check(map_view.minimap.room_visuals[entry.id].art==null,"minimap does not duplicate detailed art")
+		check(map_view.minimap.room_visuals[entry.id].art==null,"minimap never duplicates detailed art")
+		check(art==null or entry.id in app.run.castle.nearby_rooms(),"only nearby graph rooms loaded")
+		if art==null: continue
+		check(art.scene_file_path==entry.definition.scene_path,"route chooses authored template")
+		check(art.find_children("*","Camera3D",true,false).is_empty() and art.find_children("*","WorldEnvironment",true,false).is_empty(),"preview helpers do not override gameplay")
+		check(art.has_node("Bedroom")== (entry.id==0),"only starting room loads bedroom art")
+		check(map_view.minimap.room_visuals[entry.id].art==null,"minimap never duplicates detailed art")
+		check(art.has_node("LeftDoor")== (entry.id>0),"starting bedroom has no left door")
 		for direction in [-1,1]:
-			var door = art.get_node("LeftDoor" if direction<0 else "RightDoor")
-			check(is_equal_approx(door.global_position.z,2.3),"art doors align with player lane")
-			var linked = false
-			for id in entry.neighbors:
-				if app.run.castle.layout.rooms[id].column==entry.column+direction: linked = true
-			check(door.get_node("Opening").visible==linked and door.get_node("SealedWall").visible!=linked,"unconnected room boundaries are sealed")
+			var door = art.get_node_or_null("LeftDoor" if direction<0 else "RightDoor")
+			if door:
+				check(is_equal_approx(door.position.z,entry.definition.door(direction).y),"visual door matches navigation anchor")
 	check(map_view.camera.rotation_degrees.x<0 and map_view.camera.projection==Camera3D.PROJECTION_PERSPECTIVE,"main camera tilted with room depth")
 	check(map_view.minimap!=null and map_view.minimap.camera.projection==Camera3D.PROJECTION_ORTHOGONAL and is_zero_approx(map_view.minimap.camera.rotation_degrees.x),"minimap retains flat orthographic view")
 	for door in map_view.door_leaves:
@@ -323,7 +323,7 @@ func _test_ui() -> void:
 	check(map_view.camera.rotation==main_camera_rotation,"overview affects only minimap")
 	map_view._input(tab)
 	check(not app.run.castle.overview,"Tab restores follow view")
-	app.run.castle.move(10)
+	load("res://tests/castle_test.gd").travel(app.run.castle)
 	var castle_room: int = app.run.castle.current
 	var interact_key := InputEventKey.new()
 	interact_key.physical_keycode = KEY_F
@@ -400,12 +400,13 @@ func _test_ui() -> void:
 	check(app.screen == "map","pure battle returns directly to castle")
 	check(app.run.castle.current==castle_room and app.run.castle.room().cleared and not app.run.castle.in_battle,"same room unlocked after battle and reward")
 	var returned_view = app.page.get_node("CastleView")
+	check(returned_view==map_view,"combat return reuses existing exploration world")
 	returned_view._snap_camera()
 	returned_view._sync()
-	check(returned_view.room_visuals[app.run.castle.layout.spawn].node.visible,"visited adjacent room remains visible after camera settles")
+	check(returned_view.minimap.room_visuals[app.run.castle.layout.spawn].node.visible and not returned_view.room_visuals[app.run.castle.layout.spawn].node.visible,"minimap keeps explored bedroom while main view shows one room")
 	for door in returned_view.door_leaves:
 		if door.room==castle_room: check(not door.closed,"cleared room door leaves reopen")
-	app.run.castle.move(10)
+	load("res://tests/castle_test.gd").travel(app.run.castle)
 	var points_before: int = app.run.inventory.points
 	app.page.get_node("CastleView").perform_interaction()
 	check(app.screen=="content_dialogue" and app.dialogue.active and app.dialogue.finish_label=="查看赠礼","event interaction opens portrait dialogue first")
@@ -416,10 +417,11 @@ func _test_ui() -> void:
 	check(app.dialogue.index==0 and app.run.inventory.points==points_before,"repeated interaction neither restarts nor awards event")
 	while app.dialogue.active: app.dialogue.advance()
 	check(app.screen=="room_content","event UI opens")
+	check(app.cached_castle_view==map_view and map_view.is_visible_in_tree(),"event UI reuses exploration background")
 	check(not app.run.castle.in_dialogue and app.ui_root.process_mode==Node.PROCESS_MODE_INHERIT,"event dialogue releases controls")
 	app.run_screens.commit(0)
 	check(app.run.inventory.points==points_before+20 and app.screen=="map","event grants points then returns to map")
-	app.run.castle.move(10)
+	load("res://tests/castle_test.gd").travel(app.run.castle)
 	app.page.get_node("CastleView").perform_interaction()
 	check(app.screen=="content_dialogue" and app.dialogue.finish_label=="进入商店","shop interaction opens merchant dialogue first")
 	while app.dialogue.active: app.dialogue.advance()

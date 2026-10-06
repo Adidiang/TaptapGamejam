@@ -89,37 +89,29 @@ func test(verify: Callable) -> void:
 		var run := NightRun.new()
 		var profile := MemoryProfile.new()
 		profile.persistence = false
-		run.begin(seed_value,profile,true)
+		run.begin(load("res://tests/castle_test.gd").test_seed(seed_value*100),profile,true)
 		var state := run.castle
 		var shops := 0
 		var events := 0
 		for room in state.layout.rooms:
 			if room.kind=="shop": shops += 1
 			if room.kind=="event": events += 1
-		check.call(shops>=1 and shops<=2 and events>=2,"guaranteed mixed room distribution")
-		var key: int = state.layout.copper.a
-		var gear: int = state.layout.copper.b
-		var altar: int = state.layout.ladders.back().upper
-		state.move(-10)
-		check.call(state.current==key and state.interact()=="content" and not state.locked(),"key event reached without combat lock")
-		state.move(-10)
-		check.call(state.current==key and not state.can_pass(key,gear),"copper door physically blocks movement")
-		state.player_x = -10
-		check.call(run.claim_offer(0) and "R08" in state.relics,"key acquisition shared with traversal")
+		check.call(shops>=1 and events>=1,"selected route covers event and shop progression")
+		check.call(not state.layout.has("copper") and state.layout.ladders.is_empty(),"retired castle branches are absent")
+		var travel = load("res://tests/castle_test.gd")
+		travel.travel(state)
+		check.call(state.interact()=="battle" and run.start_castle_encounter(),"first room encounter works")
+		run.hp = 100
+		run.finish_node()
+		travel.travel(state)
+		check.call(state.current==2 and state.interact()=="content","currency event reached through right door")
+		check.call(run.claim_offer(0) and run.inventory.points==20,"linear event grants currency")
 		check.call(not run.claim_offer(0),"event reward idempotent")
-		state.move(-4)
-		check.call(state.interact()=="unlock" and state.can_pass(key,gear),"key opens actual copper passage")
-		state.move(-6)
-		check.call(state.current==gear and state.room_visibility(altar)==0,"hidden ladder does not reveal adjacent altar")
-		check.call(run.claim_offer(0) and state.interact()=="clock","gear event enables clock interaction")
-		check.call(state.room_visibility(altar)==1,"clock activates real ladder connection and fog")
-		state.move(-2.5)
-		check.call(state.interact()=="ladder" and state.current==altar,"activated ladder traversable")
-		state.move(2.5)
-		check.call(run.claim_offer(0) and "R10" in run.inventory.relics,"altar grants ending relic")
-		run.finish_run(true)
-		check.call(run.can_choose_name_ending(),"clock and mark unlock optional victory ending")
-		check.call(profile.loops==0,"new progression does not mutate legacy profile")
+		travel.travel(state)
+		check.call(state.current==3 and state.interact()=="content","linear shop reached")
+		check.call(run.claim_offer(0) and run.inventory.points==5,"shop stock charges once")
+		check.call(not run.claim_offer(0),"shop purchase idempotent")
+		check.call(profile.loops==0,"new progression leaves legacy profile untouched")
 
 	for seed_value in range(100):
 		var simulation := LoadDuel.new()

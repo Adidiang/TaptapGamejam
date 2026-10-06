@@ -1,0 +1,44 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://ca1li54d1f6gk"
+path.s3tc="res://.godot/imported/bedroom_Baked_MAT_Carpet_Boy.png-ef36e9c14fa4588f28177b9aba4960fc.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "2888a68297db2a7973f3172584d31a50"
+}
+
+[deps]
+
+source_file="res://art/received_bedroom/bedroom_Baked_MAT_Carpet_Boy.png"
+dest_files=["res://.godot/imported/bedroom_Baked_MAT_Carpet_Boy.png-ef36e9c14fa4588f28177b9aba4960fc.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

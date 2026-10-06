@@ -1,0 +1,462 @@
+[
+  {
+    "id": "A00",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "0032_LOD_1_Group_0_Sub_24__st51_GardenBCurtain_A_Mat__E_371e634",
+    "size": [
+      0.189453125,
+      3.6382389068603516,
+      0.8474044799804688
+    ]
+  },
+  {
+    "id": "A01",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "0020_LOD_1_Group_0_Sub_13__st51_GardenBMolding_B_Mat__E_bc1891f",
+    "size": [
+      1.427734375,
+      3.5033035278320312,
+      0.2785358428955078
+    ]
+  },
+  {
+    "id": "A02",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "0030_LOD_1_Group_0_Sub_22__st51_GardenBFireplace_B_Mat__9e48c2b",
+    "size": [
+      1.6629829406738281,
+      1.6322154998779297,
+      2.3636417388916016
+    ]
+  },
+  {
+    "id": "A03",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm30_514_00",
+    "size": [
+      1.6035537719726562,
+      0.7595462799072266,
+      0.7609462738037109
+    ]
+  },
+  {
+    "id": "A04",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm30_517_00",
+    "size": [
+      1.6969528198242188,
+      0.7951278686523438,
+      0.845184326171875
+    ]
+  },
+  {
+    "id": "A05",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm34_572_00",
+    "size": [
+      0.9940757751464844,
+      1.3770027160644531,
+      0.9151277542114258
+    ]
+  },
+  {
+    "id": "A06",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm34_534_01",
+    "size": [
+      0.32859039306640625,
+      0.9446620941162109,
+      0.4324932098388672
+    ]
+  },
+  {
+    "id": "A07",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm40_513_00",
+    "size": [
+      0.3362274169921875,
+      0.5264129638671875,
+      0.2285776138305664
+    ]
+  },
+  {
+    "id": "A08",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm34_531_00",
+    "size": [
+      0.8079299926757812,
+      1.2720794677734375,
+      0.4764738082885742
+    ]
+  },
+  {
+    "id": "A09",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm34_533_06",
+    "size": [
+      0.11697769165039062,
+      1.3366031646728516,
+      0.9985256195068359
+    ]
+  },
+  {
+    "id": "A10",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm34_529_00",
+    "size": [
+      0.8582382202148438,
+      0.4950714111328125,
+      0.7319297790527344
+    ]
+  },
+  {
+    "id": "A11",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm34_640_00",
+    "size": [
+      0.18140792846679688,
+      0.35134124755859375,
+      0.15755939483642578
+    ]
+  },
+  {
+    "id": "A12",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm34_642_00",
+    "size": [
+      0.5627212524414062,
+      0.3904991149902344,
+      0.5723915100097656
+    ]
+  },
+  {
+    "id": "A13",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm52_517_00",
+    "size": [
+      0.2799720764160156,
+      0.24081993103027344,
+      0.2679328918457031
+    ]
+  },
+  {
+    "id": "A14",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm52_580_00",
+    "size": [
+      0.3093109130859375,
+      0.15124893188476562,
+      0.3803119659423828
+    ]
+  },
+  {
+    "id": "A15",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm52_586_00",
+    "size": [
+      0.08306121826171875,
+      0.3116950988769531,
+      0.08305740356445312
+    ]
+  },
+  {
+    "id": "A16",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm52_598_00",
+    "size": [
+      0.4296379089355469,
+      0.5697860717773438,
+      0.4296388626098633
+    ]
+  },
+  {
+    "id": "A17",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm54_005_00",
+    "size": [
+      0.7187538146972656,
+      0.9539146423339844,
+      0.7168502807617188
+    ]
+  },
+  {
+    "id": "A18",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm34_573_00.001",
+    "size": [
+      0.9718818664550781,
+      1.4587173461914062,
+      0.9689159393310547
+    ]
+  },
+  {
+    "id": "A19",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm31_507_00",
+    "size": [
+      0.7427978515625,
+      1.1239337921142578,
+      0.741969108581543
+    ]
+  },
+  {
+    "id": "A20",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm31_515_00",
+    "size": [
+      0.6802825927734375,
+      1.08843994140625,
+      0.6802825927734375
+    ]
+  },
+  {
+    "id": "A21",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm52_527_02_Plate",
+    "size": [
+      0.24442291259765625,
+      0.47686767578125,
+      0.48563575744628906
+    ]
+  },
+  {
+    "id": "A22",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm52_024_00_Papers",
+    "size": [
+      0.46746063232421875,
+      0.009546279907226562,
+      0.31789588928222656
+    ]
+  },
+  {
+    "id": "A23",
+    "source": "D:/edge下载/9套Blender幻想中世纪华丽室内场景/5_CourtyardRoom/5_CourtyardRoom/Re4R_CourtyardRoom_1.0.blend",
+    "object": "sm33_503_01",
+    "size": [
+      1.6679840087890625,
+      2.4342174530029297,
+      0.1951313018798828
+    ]
+  },
+  {
+    "id": "B00",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Tev_NeveChair_01_Material",
+    "size": [
+      0.9010903835296631,
+      0.7572824954986572,
+      0.9809510707855225
+    ]
+  },
+  {
+    "id": "B01",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Tev_NeveDesk_01_Material",
+    "size": [
+      2.1629621982574463,
+      0.7519534826278687,
+      1.073899269104004
+    ]
+  },
+  {
+    "id": "B02",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Elv_Table_01_Mat",
+    "size": [
+      0.7857489585876465,
+      0.7222853899002075,
+      0.9004003405570984
+    ]
+  },
+  {
+    "id": "B03",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Tev_Rugs_03_Material",
+    "size": [
+      3.841731548309326,
+      0.04835103824734688,
+      2.1058785915374756
+    ]
+  },
+  {
+    "id": "B04",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Elv_Neve_Shelf_01_Material",
+    "size": [
+      0.8817667961120605,
+      1.7166328430175781,
+      0.8824186325073242
+    ]
+  },
+  {
+    "id": "B05",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Tev_MetalFlask",
+    "size": [
+      0.3163013458251953,
+      0.8759765625,
+      0.3473278284072876
+    ]
+  },
+  {
+    "id": "B06",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "prp_tev_EnchanterBook",
+    "size": [
+      0.4290550649166107,
+      0.13896556198596954,
+      0.4247255325317383
+    ]
+  },
+  {
+    "id": "B07",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Tev_Book_01_Material",
+    "size": [
+      0.1602787971496582,
+      0.31062281131744385,
+      0.28130340576171875
+    ]
+  },
+  {
+    "id": "B08",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Elv_BellaraNotebook_Material",
+    "size": [
+      0.36877721548080444,
+      0.13049322366714478,
+      0.2806657552719116
+    ]
+  },
+  {
+    "id": "B09",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Dwa_GemBowl_01_Materials",
+    "size": [
+      0.4270634651184082,
+      0.1585693359375,
+      0.4615418314933777
+    ]
+  },
+  {
+    "id": "B10",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Dwa_GemBowl_02_Materials",
+    "size": [
+      0.3693695068359375,
+      0.18190670013427734,
+      0.40593957901000977
+    ]
+  },
+  {
+    "id": "B11",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Gen_DrinkingCup_01",
+    "size": [
+      0.10969781875610352,
+      0.17512106895446777,
+      0.10969758033752441
+    ]
+  },
+  {
+    "id": "B12",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Fre_Grogbottle_01_Material",
+    "size": [
+      0.17480850219726562,
+      0.2136528491973877,
+      0.1750507354736328
+    ]
+  },
+  {
+    "id": "B13",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Pot_03_Material",
+    "size": [
+      0.19697120785713196,
+      0.175048828125,
+      0.19695281982421875
+    ]
+  },
+  {
+    "id": "B14",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Fre_Prp_Pot_03_M",
+    "size": [
+      0.1702108383178711,
+      0.09922909736633301,
+      0.2101445198059082
+    ]
+  },
+  {
+    "id": "B15",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Fern",
+    "size": [
+      0.4174177646636963,
+      0.2979561686515808,
+      0.49746036529541016
+    ]
+  },
+  {
+    "id": "B16",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Elv_Sketch_01",
+    "size": [
+      0.820068359375,
+      0.405029296875,
+      0.0223388671875
+    ]
+  },
+  {
+    "id": "B17",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Elv_Sketch_02",
+    "size": [
+      0.638671875,
+      0.541259765625,
+      0.0330810546875
+    ]
+  },
+  {
+    "id": "B18",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Elv_Sketch_03",
+    "size": [
+      0.4228515625,
+      0.6560057401657104,
+      0.0311279296875
+    ]
+  },
+  {
+    "id": "B19",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Elv_Poster_03",
+    "size": [
+      0.67431640625,
+      0.6865997314453125,
+      0.03912353515625
+    ]
+  },
+  {
+    "id": "B20",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "Prp_Dwa_Screen.004",
+    "size": [
+      0.578662633895874,
+      1.4571492671966553,
+      0.49376869201660156
+    ]
+  },
+  {
+    "id": "B21",
+    "source": "D:/edge下载/WD266-Blender欧美风格复古书房场景/Veilguard - Neves Office 4.5.blend",
+    "object": "prp_gen_StandingBrazier",
+    "size": [
+      0.5537376403808594,
+      1.2169930934906006,
+      0.553884744644165
+    ]
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "asset": "Panel",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm21_307_antiquewoodpanelling_00.001"
+  },
+  {
+    "asset": "Pillar",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm21_310_antiquewoodpillar_00.001"
+  },
+  {
+    "asset": "Plant",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm11_005_houseplantlarge01_00"
+  },
+  {
+    "asset": "Table",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm30_040_AntiqueTable01_00"
+  },
+  {
+    "asset": "Sofa",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm31_040_sofaA_00"
+  },
+  {
+    "asset": "Chair",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm31_047_AntiqueChair01_00"
+  },
+  {
+    "asset": "Chandelier",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm40_029_Chandeliers01_00.001"
+  },
+  {
+    "asset": "Painting",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm54_009_HangingPicture01_00"
+  },
+  {
+    "asset": "Sideboard",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm39_037_AntiqueSideBoard02_00"
+  },
+  {
+    "asset": "Pedestal",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm39_038_Pedestal01_00"
+  },
+  {
+    "asset": "Candelabra",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm40_033_TableCandelabra01_00"
+  },
+  {
+    "asset": "Clock",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm49_010_AntiqueTallClock01_00.001"
+  },
+  {
+    "asset": "Books",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm55_001_Books_02"
+  },
+  {
+    "asset": "Bookcase",
+    "source": "F:\\gamejam\\exports\\nine_sources\\7_ChiefBedroom\\Re4R_ChiefBedroom_2.0.blend",
+    "object": "sm32_530_00.002"
+  }
+]

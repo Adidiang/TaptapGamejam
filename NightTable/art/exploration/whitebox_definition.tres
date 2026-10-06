@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ExplorationRoomDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/exploration_room_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+scene_path = "res://art/exploration/whitebox_room.tscn"
+camera_position = Vector3(0, 2.1739657, 7.4098067)
+camera_pitch = -1.201
+camera_fov = 45.74733

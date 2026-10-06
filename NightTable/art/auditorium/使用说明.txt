@@ -1,0 +1,10 @@
+礼堂补景版：res://art/auditorium/auditorium.tscn
+F6 可预览；PreviewCamera 是原两台相机的中点，原相机未移动。
+HallDressing 下所有新增墙板、立柱、金边、灯具、花瓶和台座均可单独编辑。
+原座椅、心形舞台保持原位置；尚未接入游戏路线。
+DiningHall：护墙板、帷幔、烛台、壁灯、浮雕和台座，复用 banquet/dining_assets。
+Neves Office：CarvedPanel、Vase 及石材纹理，位于 office_assets。
+地面材质 inlaid_floor.gdshader，墙纸 wallpaper.gdshader。
+DreamGrade 沿用共用绘本滤镜；如需单独修改请先使材质唯一。
+build_preview.gd、dress.gd 为一次性工具，手动调整后不要重新运行。
+原始导入备份：F:/gamejam/outputs/auditorium/before_dressing.tscn

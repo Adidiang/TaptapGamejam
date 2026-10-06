@@ -47,8 +47,8 @@ func inventory(back: Callable, replace_offer: int = -1, show_relics: bool = fals
 		ui._label(column,"遗物",24,ui.GOLD)
 		if inv.relics.is_empty(): ui._text(column,"尚未获得遗物。",18)
 		for id in inv.relics: ui._text(column,RelicCatalog.text(id),18,ui.TEXT)
-		if "R08" in inv.relics: ui._text(column,"铜锁："+("已开启" if ui.run.castle.layout.copper.open else "未开启"),17)
-		if "R09" in inv.relics: ui._text(column,"钟机："+("已启动" if ui.run.castle.layout.clock_started else "未启动"),17)
+		if "R08" in inv.relics and ui.run.castle.layout.has("copper"): ui._text(column,"铜锁："+("已开启" if ui.run.castle.layout.copper.open else "未开启"),17)
+		if "R09" in inv.relics and ui.run.castle.layout.has("clock_started"): ui._text(column,"钟机："+("已启动" if ui.run.castle.layout.clock_started else "未启动"),17)
 	ui._button(ui.page,"返回",back,180)
 
 func confirm(message: String, yes: Callable, back: Callable) -> void:
@@ -65,11 +65,7 @@ func room() -> void:
 	var holder := Control.new()
 	holder.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	ui.page.add_child(holder)
-	var background := CastleView.new()
-	background.configure(state)
-	holder.add_child(background)
-	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	background.process_mode = Node.PROCESS_MODE_DISABLED
+	ui.attach_castle_view(holder,false)
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override("panel",ui._style(Color("17252bf5"),ui.GOLD))
 	holder.add_child(panel)

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ExplorationRoomDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/exploration_room_definition.gd" id="1_gq8un"]
+
+[resource]
+script = ExtResource("1_gq8un")
+scene_path = "res://art/exploration/banquet_room.tscn"
+floor_bounds = Rect2(-4.5, -10.672392, 9, 12.5)
+spawn = Vector2(-3.85, -1.346)
+interaction = Vector2(0, -1.346)
+obstacles = Array[Rect2]([Rect2(-3.1619804, -10.866642, 6.3239613, 3.7003217), Rect2(1.2009678, -6.9566727, 3.4782848, 5.0700097), Rect2(-4.719368, -6.9566736, 3.4782848, 5.07001), Rect2(-4.4, -12.932391, 8.8, 0.21999931), Rect2(-4.275, -12.572389, 2.0500002, 0.40000057), Rect2(-4.175, -11.332392, 1.3500001, 0.7199993), Rect2(-4.33, -9.647392, 0.6999998, 2.3500004), Rect2(-3.1, -9.222392, 0.5, 0.5), Rect2(-4.4300003, -11.522392, 0.1800003, 3.7000003), Rect2(-4.4300003, -7.6223917, 0.1800003, 3.6999998), Rect2(-4.24, 0.43760824, 0.47999978, 0.48000002), Rect2(2.225, -12.572389, 2.0500002, 0.40000057), Rect2(2.825, -11.332392, 1.3500001, 0.7199993), Rect2(3.63, -9.647392, 0.6999998, 2.3500004), Rect2(2.6, -9.222392, 0.5, 0.5), Rect2(4.25, -11.522392, 0.1800003, 3.7000003), Rect2(4.25, -7.6223917, 0.1800003, 3.6999998), Rect2(3.76, 0.43760824, 0.47999978, 0.48000002)])
+camera_position = Vector3(1.3770329, 2.9899623, 5.474649)
+camera_pitch = -7.0
+camera_left_anchor = NodePath("Banquet/Layout/摄像机")
+camera_right_anchor = NodePath("Banquet/Layout/摄像机_001")

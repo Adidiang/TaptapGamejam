@@ -1,0 +1,50 @@
+[gd_scene format=3]
+[sub_resource type="StandardMaterial3D" id="Paint"]
+albedo_color = Color(0.64, 0.75, 0.65, 1)
+roughness = 1.0
+[sub_resource type="BoxMesh" id="Rail"]
+size = Vector3(0.09, 4.3, 0.1)
+material = SubResource("Paint")
+[sub_resource type="BoxMesh" id="Rung"]
+size = Vector3(0.65, 0.08, 0.12)
+material = SubResource("Paint")
+[node name="PastelLadder" type="Node3D"]
+[node name="LeftRail" type="MeshInstance3D" parent="."]
+position = Vector3(-0.32, 2.15, 0)
+mesh = SubResource("Rail")
+[node name="RightRail" type="MeshInstance3D" parent="."]
+position = Vector3(0.32, 2.15, 0)
+mesh = SubResource("Rail")
+[node name="Rung1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.36, 0)
+mesh = SubResource("Rung")
+[node name="Rung2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.72, 0)
+mesh = SubResource("Rung")
+[node name="Rung3" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.08, 0)
+mesh = SubResource("Rung")
+[node name="Rung4" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.44, 0)
+mesh = SubResource("Rung")
+[node name="Rung5" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.7999999999999998, 0)
+mesh = SubResource("Rung")
+[node name="Rung6" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.16, 0)
+mesh = SubResource("Rung")
+[node name="Rung7" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.52, 0)
+mesh = SubResource("Rung")
+[node name="Rung8" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.88, 0)
+mesh = SubResource("Rung")
+[node name="Rung9" type="MeshInstance3D" parent="."]
+position = Vector3(0, 3.2399999999999998, 0)
+mesh = SubResource("Rung")
+[node name="Rung10" type="MeshInstance3D" parent="."]
+position = Vector3(0, 3.5999999999999996, 0)
+mesh = SubResource("Rung")
+[node name="Rung11" type="MeshInstance3D" parent="."]
+position = Vector3(0, 3.96, 0)
+mesh = SubResource("Rung")

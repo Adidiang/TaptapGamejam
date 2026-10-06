@@ -1,75 +1,23 @@
-# 余夜 / Night Table · 0.6
+# 余夜 / Night Table
 
-探索视角：主场景为略俯视的单房间3D视角，右上角是平视小地图；Tab切换小地图局部/全图。门扇按实际锁门状态打开/关闭，铜锁仍需钥匙与F交互。
+用 Godot 打开 project.godot，按 F5 运行。桌面默认 Forward+；WASD / 方向键四向移动，F 交互，Tab 切换小地图视图。
 
-探索场景已接入酒馆素材房间：战斗房、事件房、商店房位于 `art/room_studies/`，可在 Godot 中直接编辑并按 F6 单独预览。房型映射与门、梯子使用 `room_catalog.tres` 配置；出生房和 Boss 房暂复用战斗房。节点接口与调整方式见 [房间美术说明](art/room_studies/README.md)。
+## 当前编辑入口
 
-现已接入战斗/事件/商店/Boss、本轮2–20张牌组、公共摸牌风险、十种遗物及机关结局。地图按I查看行囊，在安全房间调整牌组；商店使用质押点。完整当前规则、试玩价格与模块见 [探索构筑实现v0.6](docs/探索构筑实现v0.6.md)。下文0.5及0.2内容保留作为历史记录；原永久牌库和旧道具不再进入当前轮回。
+- 新卧室：art/bedroom_v2/bedroom.tscn，F6 可独立预览。家具可单独调整。
+- 旧版卧室效果参考：art/received_bedroom/bedroom.tscn，完整保留。
+- 房间路线、门与碰撞：art/exploration/route.tres、bedroom_definition.tres，说明见 [房间实现](art/exploration/README.md)。
+- 卧室镜头范围：FurnitureAndArchitecture 下的摄像机2为左端，摄像机为右端；游戏读取这两个节点的位置。
+- 地图纸面滤镜：art/exploration/room_paper_filter.tres。
+- 牌局美术：art/duel/；牌局逻辑：scripts/。
+- 测试：tests/smoke.gd；镜头专项检查：art/exploration/check_camera_motion.gd。
 
-当前地图已替换为完全侧视的随机3D城堡。A/D或左右键移动，F使用梯子或开始战斗，Tab切换总览。新房间锁门，完成战斗与奖励后解锁。玩法和生成算法见 [城堡地图v0.5](docs/城堡地图v0.5.md)。
+## 目录整理
 
-地图现为纯场景全屏显示，上下信息栏和底部按钮已移除。开始轮回直接通过双侧幕布进入地图，战斗切换和返回地图也有幕布过场。Esc返回主菜单；牌局界面保持原样。
+2026-10-04 将旧酒馆房间预览、早期白盒与卧室样例、旧截图、一次性重建脚本、已合并进场景的家具 GLB 中间文件移出工程。当前卧室和牌桌仍引用的酒馆书堆、桌椅、烛台等共享资源保留。
 
-战斗点按F先进入战前对话：下半屏对话框、右侧2D黑色立绘占位，普通房与Boss各三句。按F、空格或点击推进，结束后通过幕布进入对战。台词集中在 `scripts/encounter_dialogue.gd`，可独立替换文字和立绘。
+归档：../archive/cleanup_2026-10-04/legacy_project_files.zip。清单 manifest.json 包含原路径与 SHA256。需要恢复时按清单选择文件，将压缩包内的路径解压到 F:/gamejam；先确认不要覆盖后续修改。
 
-功能牌现分效果、加成、陷阱三类：7种效果牌、3种结算加成、3种自动触发陷阱，共享3个槽位。完整牌表与触发规则见 [功能牌设计v0.4](docs/功能牌设计v0.4.md)。
+原始 Blender 素材及外部素材库保留。运行中的 Godot 导入缓存未手动删除；.godot 为自动生成目录，不纳入版本控制。截图与历史备份放在工程外的 ../outputs/ 和 ../archive/，避免参与资源导入。
 
-当前局内已切换为数字牌、功能牌和负荷对战，具体规则与模块扩展方式见 [新版对战实现](docs/局内对战v0.3.md)。地图、商店、奖励和永久牌库存档保持原流程。下方 0.2 内容清单记录旧版系统，其中旧点数技能、遗物、道具与 Boss 特殊能力暂不作用于新版对战。
-
-Godot 4.7 的 21 点肉鸽可玩原型。所有画面为程序占位美术。
-
-## 启动
-
-双击 `启动游戏.cmd`。编辑时用旁边的 Godot 导入 `project.godot`，按 F5 运行。使用 GDScript，无需安装额外 CLI 或 .NET SDK。
-
-## 0.2 系统基础（局内已由 0.3 替换）
-
-- 三幕分支地图、牌桌、事件、休息、商店与三个不同规则的 Boss。
-- 独立牌库、明暗牌、要牌/停牌、A 计点、黑杰克、五龙、平局重开、生命质押与结算。
-- A–K 共 13 种点数技能、6 种遗物、3 种道具，以及爆牌后的回溯救场。
-- 奖励选择、生命购买、永久加牌/删牌、轮回成长与三个结局分支。
-- 永久牌库存档。当前路线、生命、遗物与道具不跨程序退出保存。
-- 3D 占位牌桌叠加 2D 界面；最终三渲二材质、正式美术、声音和完整叙事待制作。
-- `scenes/level1_whitebox.tscn`：Level 1「卡牌王国」关卡白盒，独立场景，F6 单独运行即可；规格与尺寸假设见 `docs/关卡白盒-Level1卡牌王国.md`，正视图见 `docs/level1-白盒平面图.svg`
-（**横板正视图**：房间沿 X 一字排开，不是走廊加两侧房间）。
-
-第一次游玩：开始轮回 → 选择升级 → 点击亮起的地图节点 → 质押发牌 → 要牌/停牌 → 领取奖励继续。卡牌和道具可悬停查看说明，牌桌提供规则入口。
-
-设计选择见 `docs/玩法实现v0.2.md`，策划阅读整理见 `docs/飞书玩法阅读笔记.md`。
-
-## 代码分工
-
-| 文件 | 职责 |
-| --- | --- |
-| scripts/blackjack_match.gd | 牌局状态机、技能、道具与结算 |
-| scripts/run_state.gd | 轮回、三幕推进与节点状态 |
-| scripts/profile.gd | 永久牌库与存档 |
-| scripts/game_catalog.gd | 技能、遗物、道具、Boss 定义 |
-| scripts/card_data.gd、scripts/deck.gd | 卡牌实例、洗牌、抽弃牌 |
-| scripts/map_generator.gd、scripts/route_view.gd | 地图生成与展示 |
-| scripts/main.gd、scripts/ui_base.gd | 界面与流程连接 |
-| scripts/table_stage.gd | 占位三维环境 |
-| scripts/level1_whitebox.gd | Level 1「卡牌王国」关卡白盒（程序化占位几何，独立场景，不影响主游戏） |
-| tests/smoke.gd | 规则边界、流程、存档及模拟检查 |
-| tests/whitebox.gd | 白盒房间数量与设计图配比的检查 |
-
-存档为 `user://memory_profile_v1.json`，编辑器“项目 → 打开用户数据文件夹”可定位。异常存档会提示并停止覆盖原文件。
-
-## 验证
-
-在 F:\gamejam 执行：
-
-```powershell
-& '.\Godot_v4.7.2-stable_mono_win64\Godot_v4.7.2-stable_mono_win64_console.exe' --headless --path '.\NightTable' --script res://tests/smoke.gd -- --smoke
-& '.\Godot_v4.7.2-stable_mono_win64\Godot_v4.7.2-stable_mono_win64_console.exe' --path '.\NightTable' -- --capture
-```
-
-检查包括 100 个地图种子、120 次自动轮回、规则边界和界面流程。自动策略用于验证状态约束和终止性，不代表正式平衡评估。截图输出在 captures，包含人为设置的压力场景。两种模式不改玩家存档；存档往返测试使用独立临时文件。
-
-关卡白盒的配比检查单独跑：
-
-```powershell
-& '.\Godot_v4.7.2-stable_mono_win64\Godot_v4.7.2-stable_mono_win64_console.exe' --headless --path '.\NightTable' --script res://tests/whitebox.gd
-```
-
-改了白盒的房间数量或类型后跑一次；与 `docs/关卡白盒-Level1卡牌王国.md` 的配比不一致时会直接失败。
+历次玩法与过期编辑入口见 [历史项目说明](docs/历史项目说明.md)，其中的旧场景路径可能已转入归档。

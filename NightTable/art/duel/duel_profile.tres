@@ -1,4 +1,4 @@
-[gd_resource type="Resource" format=3 uid="uid://d2051oui0pak7"]
+[gd_resource type="Resource" format=3]
 
 [ext_resource type="Script" uid="uid://dkphea35smuyj" path="res://art/rendering/painterly_profile.gd" id="1"]
 

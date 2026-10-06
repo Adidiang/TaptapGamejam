@@ -1,0 +1,281 @@
+[
+  {
+    "id": "Sword02",
+    "size": [
+      0.031089067459106445,
+      0.9077311754226685,
+      0.19684307277202606
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Sword-02.SM_Sword-02"
+  },
+  {
+    "id": "Sword01",
+    "size": [
+      0.027323635295033455,
+      0.9549867510795593,
+      0.2397301346063614
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Sword-01.SM_Sword-01"
+  },
+  {
+    "id": "Shield25",
+    "size": [
+      0.08546394109725952,
+      0.6906396150588989,
+      0.5809142589569092
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-25.SM_Shield-25"
+  },
+  {
+    "id": "Shield24",
+    "size": [
+      0.08546394109725952,
+      0.6906396150588989,
+      0.5809142589569092
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-24.SM_Shield-24"
+  },
+  {
+    "id": "Shield23",
+    "size": [
+      0.08546394109725952,
+      0.6906396150588989,
+      0.5809142589569092
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-23.SM_Shield-23"
+  },
+  {
+    "id": "Shield22",
+    "size": [
+      0.08546394109725952,
+      0.6906396150588989,
+      0.5809142589569092
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-22.SM_Shield-22"
+  },
+  {
+    "id": "Shield21",
+    "size": [
+      0.08546394109725952,
+      0.6906396150588989,
+      0.5809142589569092
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-21.SM_Shield-21"
+  },
+  {
+    "id": "Shield20",
+    "size": [
+      0.08120609074831009,
+      1.0272613763809204,
+      0.6417585015296936
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-20.SM_Shield-20"
+  },
+  {
+    "id": "Shield19",
+    "size": [
+      0.08120609074831009,
+      1.0272613763809204,
+      0.6417585015296936
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-19.SM_Shield-19"
+  },
+  {
+    "id": "Shield18",
+    "size": [
+      0.08120609074831009,
+      1.0272613763809204,
+      0.6417585015296936
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-18.SM_Shield-18"
+  },
+  {
+    "id": "Shield17",
+    "size": [
+      0.08120609074831009,
+      1.0272613763809204,
+      0.6417585015296936
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-17.SM_Shield-17"
+  },
+  {
+    "id": "Shield16",
+    "size": [
+      0.08120609074831009,
+      1.0272613763809204,
+      0.6417585015296936
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-16.SM_Shield-16"
+  },
+  {
+    "id": "Shield15",
+    "size": [
+      0.15649665892124176,
+      1.2991139888763428,
+      0.5387526154518127
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-15.SM_Shield-15"
+  },
+  {
+    "id": "Shield14",
+    "size": [
+      0.15649665892124176,
+      1.2991139888763428,
+      0.5387526154518127
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-14.SM_Shield-14"
+  },
+  {
+    "id": "Shield13",
+    "size": [
+      0.15649665892124176,
+      1.2991139888763428,
+      0.5387526154518127
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-13.SM_Shield-13"
+  },
+  {
+    "id": "Shield12",
+    "size": [
+      0.15649665892124176,
+      1.2991139888763428,
+      0.5387526154518127
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-12.SM_Shield-12"
+  },
+  {
+    "id": "Shield11",
+    "size": [
+      0.15649665892124176,
+      1.2991139888763428,
+      0.5387526154518127
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-11.SM_Shield-11"
+  },
+  {
+    "id": "Shield10",
+    "size": [
+      0.07895158976316452,
+      1.2842940092086792,
+      0.5103477239608765
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-10.SM_Shield-10"
+  },
+  {
+    "id": "Shield09",
+    "size": [
+      0.07895158976316452,
+      1.2842940092086792,
+      0.5103477239608765
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-09.SM_Shield-09"
+  },
+  {
+    "id": "Shield08",
+    "size": [
+      0.07895158976316452,
+      1.2842940092086792,
+      0.5103477239608765
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-08.SM_Shield-08"
+  },
+  {
+    "id": "Shield07",
+    "size": [
+      0.07895158976316452,
+      1.2842940092086792,
+      0.5103477239608765
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-07.SM_Shield-07"
+  },
+  {
+    "id": "Shield06",
+    "size": [
+      0.07895158976316452,
+      1.2842940092086792,
+      0.5103477239608765
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-06.SM_Shield-06"
+  },
+  {
+    "id": "Shield05",
+    "size": [
+      0.10887199640274048,
+      0.7544040083885193,
+      0.6106261014938354
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-05.SM_Shield-05"
+  },
+  {
+    "id": "Shield04",
+    "size": [
+      0.10887199640274048,
+      0.7544040083885193,
+      0.6106261014938354
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-04.SM_Shield-04"
+  },
+  {
+    "id": "Shield03",
+    "size": [
+      0.10887199640274048,
+      0.7544040083885193,
+      0.6106261014938354
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-03.SM_Shield-03"
+  },
+  {
+    "id": "Shield02",
+    "size": [
+      0.10887199640274048,
+      0.7544040083885193,
+      0.6106261014938354
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-02.SM_Shield-02"
+  },
+  {
+    "id": "Shield01",
+    "size": [
+      0.10887199640274048,
+      0.7544040083885193,
+      0.6106261014938354
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Shield-01.SM_Shield-01"
+  },
+  {
+    "id": "Dagger04",
+    "size": [
+      0.42884284257888794,
+      0.018673859536647797,
+      0.09702800214290619
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Dagger-04.SM_Dagger-04"
+  },
+  {
+    "id": "Dagger03",
+    "size": [
+      0.38359615206718445,
+      0.021632254123687744,
+      0.03521890193223953
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Dagger-03.SM_Dagger-03"
+  },
+  {
+    "id": "Dagger02",
+    "size": [
+      0.6313633322715759,
+      0.013400624506175518,
+      0.13826556503772736
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Dagger-02.SM_Dagger-02"
+  },
+  {
+    "id": "Dagger01",
+    "size": [
+      0.3825799226760864,
+      0.01953781023621559,
+      0.08725693821907043
+    ],
+    "source": "/Game/MedievalProps_Kit/Decorative_Weapons_Elements/Meshes/SM_Dagger-01.SM_Dagger-01"
+  }
+]

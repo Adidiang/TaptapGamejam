@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://csfa0pcjoqocl"]
+
+[ext_resource type="Shader" uid="uid://dyupml6rk37rp" path="res://art/received_bedroom/dream_grade.gdshader" id="1_g00jf"]
+
+[resource]
+shader = ExtResource("1_g00jf")
+shader_parameter/softness = 0.24
+shader_parameter/vignette_strength = 0.18
+shader_parameter/grain_strength = 0.005
+shader_parameter/fringe = 0.0004
+shader_parameter/paper_strength = 0.025
+shader_parameter/diffusion_strength = 1.1
+shader_parameter/highlight_threshold = 0.48
+shader_parameter/diffusion_radius = 1.5
+shader_parameter/shadow_depth = 1.10
+shader_parameter/color_retention = 0.86
+shader_parameter/dream_haze = 0.8
+shader_parameter/mist_density = 0.28

@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://art/received_bedroom/dream_grade.gdshader" id="1_p5hg1"]
+
+[resource]
+shader = ExtResource("1_p5hg1")
+shader_parameter/softness = 0.26
+shader_parameter/vignette_strength = 0.3
+shader_parameter/grain_strength = 0.006
+shader_parameter/fringe = 0.00065
+shader_parameter/paper_strength = 0.027

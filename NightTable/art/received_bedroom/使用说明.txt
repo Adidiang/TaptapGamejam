@@ -1,0 +1,16 @@
+卧室场景：来自 卧室(1).blend
+
+bedroom.tscn 是可独立打开的 Godot 场景，bedroom.glb 内含模型及贴图。
+保留原相机位置、旋转以及 16:9 构图；原 Blender 相机为 30mm、45mm 传感器水平宽度，对应 Godot 垂直视野 45.74733 度。
+Blender 的部分材质调色节点已烘焙为基础色贴图。两个面光源使用同位置同朝向的 Godot 聚光灯近似，灯光强度已适配。实时光照和 Blender Cycles 的离线结果仍有差异。
+
+最终出图使用 Forward+，分辨率 1920×1080。当前游戏项目默认兼容渲染器在本场景出现阴影条纹，因此没有修改全局设置，而是用启动参数单独选择 Forward+。
+运行本目录的 preview.ps1 可按 Forward+ 打开场景。
+当前梦核版图片：F:/gamejam/outputs/received_bedroom/卧室_Godot_梦核.png
+上版原始预览保留在：F:/gamejam/outputs/received_bedroom/卧室_Godot_原相机.png
+
+梦核灯光与后期：暖粉主光、黄绿色阴影、薄雾、柔光、电视荧光、暗角、轻微色散及静态胶片颗粒。
+dream_grade.gdshader 的 softness、vignette_strength、grain_strength、fringe 可以独立调节；隐藏场景的 DreamGrade 节点可关闭全屏调色。
+电视发光使用 tv_phosphor.gdshader，灯光与相机仍为独立可编辑节点。整个效果在 Godot 实时运行，不是对截图后期修图。
+
+本次仅新增独立美术场景，尚未替换随机城堡中的房间；原始 Blender 文件未修改。

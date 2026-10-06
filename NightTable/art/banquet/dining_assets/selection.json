@@ -1,0 +1,42 @@
+[
+  {
+    "asset": "Sideboard",
+    "source_object": "sm32_525_00.001"
+  },
+  {
+    "asset": "TallCabinet",
+    "source_object": "sm32_551_00.005"
+  },
+  {
+    "asset": "StandingCandelabra",
+    "source_object": "sm40_518_01.004"
+  },
+  {
+    "asset": "WallSconce",
+    "source_object": "sm40_540_06.011"
+  },
+  {
+    "asset": "Pedestal",
+    "source_object": "sm32_562_00"
+  },
+  {
+    "asset": "CarvedMedallion",
+    "source_object": "sm35_526_00"
+  },
+  {
+    "asset": "Chandelier",
+    "source_object": "sm40_540_04"
+  },
+  {
+    "asset": "Curtain",
+    "source_object": "LOD_1_Group_0_Sub_5__st52_DiningCurtain_A_Mat__Env_1Layer_Dirt"
+  },
+  {
+    "asset": "Wainscot",
+    "source_object": "LOD_1_Group_0_Sub_12__st52_DiningPanel_A_Mat__Env_1Layer_Dirt"
+  },
+  {
+    "asset": "Cornice",
+    "source_object": "LOD_1_Group_0_Sub_2__st52_DiningBeam_B_Mat__Env_1Layer_Dirt"
+  }
+]

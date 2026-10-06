@@ -1,0 +1,62 @@
+[
+  {
+    "asset": "ComposerBustA",
+    "source": "F:\\gamejam\\exports\\nine_sources\\9_GrandHall\\Re4R_GrandHall_2.0.blend",
+    "object": "sm34_528_00"
+  },
+  {
+    "asset": "ComposerBustB",
+    "source": "F:\\gamejam\\exports\\nine_sources\\9_GrandHall\\Re4R_GrandHall_2.0.blend",
+    "object": "sm34_530_00"
+  },
+  {
+    "asset": "ComposerBustC",
+    "source": "F:\\gamejam\\exports\\nine_sources\\9_GrandHall\\Re4R_GrandHall_2.0.blend",
+    "object": "sm34_527_00"
+  },
+  {
+    "asset": "GiltConsole",
+    "source": "F:\\gamejam\\exports\\nine_sources\\9_GrandHall\\Re4R_GrandHall_2.0.blend",
+    "object": "sm30_533_00"
+  },
+  {
+    "asset": "VelvetArmchair",
+    "source": "F:\\gamejam\\exports\\nine_sources\\9_GrandHall\\Re4R_GrandHall_2.0.blend",
+    "object": "sm31_517_00"
+  },
+  {
+    "asset": "CrystalChandelier",
+    "source": "F:\\gamejam\\exports\\nine_sources\\9_GrandHall\\Re4R_GrandHall_2.0.blend",
+    "object": "sm40_540_10_Chandelier"
+  },
+  {
+    "asset": "FloorCandelabra",
+    "source": "F:\\gamejam\\exports\\nine_sources\\9_GrandHall\\Re4R_GrandHall_2.0.blend",
+    "object": "sm40_518_00.001"
+  },
+  {
+    "asset": "StoneUrn",
+    "source": "F:\\gamejam\\exports\\nine_sources\\9_GrandHall\\Re4R_GrandHall_2.0.blend",
+    "object": "sm34_511_00"
+  },
+  {
+    "asset": "GrandPortrait",
+    "source": "F:\\gamejam\\exports\\nine_sources\\9_GrandHall\\Re4R_GrandHall_2.0.blend",
+    "object": "sm34_580_00"
+  },
+  {
+    "asset": "BalconyCorbel",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm21_309_antiquewoodarchitecture_00.001"
+  },
+  {
+    "asset": "FlowerVase",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm12_000_FlowersInVase_00"
+  },
+  {
+    "asset": "Fireplace",
+    "source": "F:\\gamejam\\exports\\nine_sources\\4_DimitrescuMainHall\\RE8_DimitrescuMainHall_2.0.blend",
+    "object": "sm39_035_WoodenFirePlace01_00"
+  }
+]

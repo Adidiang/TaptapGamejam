@@ -1,0 +1,16 @@
+音乐厅场景：res://art/music_hall/music_hall.tscn
+打开后按 F6 预览。PreviewCamera 是两台布局相机的中间位置。
+
+Layout：原白盒、舞台、钢琴、花杯、门和相机定位点。
+MusicSalon：新增的书柜、书堆、边柜、沙发、座椅、画像、护墙板、立柱、植物及灯光。物体均可单独选择和移动。
+PreviewEnvironment：本房间独立环境光、雾和光晕。
+MusicGrade/PaperFilm：本房间纸面滤镜参数。
+
+新增资产来自九套素材中的 DimitrescuMainHall 和 ChiefBedroom，选取清单见 nine_assets/selection.json。
+导入颜色贴图最大边为 1024，部分复杂分层材质已简化，护墙板统一为灰绿色哑光。
+中央地毯和两侧拼花地板由 floor.gdshader 控制。
+
+这版仅编辑独立音乐厅，尚未接入游戏房间序列。
+不要重新运行 dress.gd、refine.gd 等一次性构建脚本覆盖手动调整。
+
+SalonDetails：第二轮新增前景座席、花瓶边桌、舞台半身像、壁炉、水晶吊灯及高处陈列架，可逐个调整。新资产记录见 nine_assets/selection_extra.json。
